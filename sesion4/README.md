@@ -78,9 +78,6 @@ Para esta sesión usaremos un servicio de LDAP ya creado dentro de Azure. Este s
 - Servidor de LDAP - IP: **IP dada en clase**
 - Puertos del servicio: **389** y **636**
 
-El servicio es compartido por todos los usuarios:
-
-![LDAPstruct](../imgs/esquema_ldap.png)
 
 ### Entrenando con LDAP
 

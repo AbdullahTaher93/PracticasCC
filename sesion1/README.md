@@ -58,7 +58,7 @@ El grupo de recursos se especifica al crear o modificar una VM, el cual se puede
 
 Cree una máquina virtual con el comando az vm create.
 
-Al crear una máquina virtual, hay varias opciones disponibles, como la imagen del sistema operativo, el tamaño del disco y las credenciales administrativas. El siguiente ejemplo crea una VM llamada myVM que ejecuta Ubuntu Server. Una cuenta de usuario llamada azureuser se crea en la VM, y las claves SSH se generan si no existen en la ubicación predeterminada de la clave ```(~/.ssh)``:
+Al crear una máquina virtual, hay varias opciones disponibles, como la imagen del sistema operativo, el tamaño del disco y las credenciales administrativas. El siguiente ejemplo crea una VM llamada myVM que ejecuta Ubuntu Server. Una cuenta de usuario llamada azureuser se crea en la VM, y las claves SSH se generan si no existen en la ubicación predeterminada de la clave ```(~/.ssh)```:
 
 ```
 az vm create \

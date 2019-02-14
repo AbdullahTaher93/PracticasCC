@@ -28,7 +28,7 @@ Tabla de contenido:
 
   * [Acceso vía SSH](#acceso-vía-ssh)
   * [Despliegue automático de servicios y software](#despliegue-automático-de-servicios-y-software)
-    + [Creación de script de inicio/parada y orquestación de MVs](#creación-de-script-de-inicio-parada-y-orquestación-de-mvs)
+    + [Creación de script de inicio/parada y orquestación de MVs](#creación-de-script-de-inicioparada-y-orquestación-de-mvs)
   * [Contenedores con DOCKER](#contenedores-con-docker)
     + [VIRTUAL MACHINES](#virtual-machines)
     + [CONTAINERS](#containers)

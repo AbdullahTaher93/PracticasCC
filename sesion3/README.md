@@ -28,7 +28,7 @@ Tabla de contenido:
 
   * [Acceso vía SSH](#acceso-vía-ssh)
   * [Despliegue automático de servicios y software](#despliegue-automático-de-servicios-y-software)
-    + [Creación de script de inicio/parada y orquestación de MVs](#creación-de-script-de-inicio-parada-y-orquestación-de-mvs)
+    + [Creación de script de inicio/parada y orquestación de MVs](#creación-de-script-de-inicio/parada-y-orquestación-de-mvs)
   * [Contenedores con DOCKER](#contenedores-con-docker)
     + [VIRTUAL MACHINES](#virtual-machines)
     + [CONTAINERS](#containers)
@@ -36,7 +36,7 @@ Tabla de contenido:
   * [Ventajas de DOCKER](#ventajas-de-docker)
   * [Despliegue de Contenedores](#despliegue-de-contenedores)
     + [Instalación de DOCKER en tiempo de instanciación](#instalación-de-docker-en-tiempo-de-instanciación)
-    + [Trabajo con DOCKER: Gestión de contenedores](#trabajo-con-docker:-gestión-de-contenedores)
+    + [Trabajo con DOCKER: Gestión de contenedores](#trabajo-con-docker--gestión-de-contenedores)
       - [Parametrización de contenedores con DOCKER](#parametrización-de-contenedores-con-docker)
     + [Creación de contenedores enlazados](#creación-de-contenedores-enlazados)
       - [Maquina Virtual 1](#maquina-virtual-1)

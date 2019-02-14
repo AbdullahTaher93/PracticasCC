@@ -28,9 +28,9 @@ Tabla de contenido:
 
   * [Requisitos iniciales](#requisitos-iniciales)
   * [Acceso vía SSH](#acceso-vía-ssh)
-  * [Despliegue automático de servicios y software](#despliegue-automatico-de-servicios-y-software)
-  * [Breve introducción a ANSIBLE](#breve-introducci-n-a-ansible)
-    + [Elementos en ANSIBLE:](#elementos-en-ansible-)
+  * [Despliegue automático de servicios y software](#despliegue-automático-de-servicios-y-software)
+  * [Breve introducción a ANSIBLE](#breve-introducción-a-ansible)
+    + [Elementos en ANSIBLE](#elementos-en-ansible)
     + [Instalación de ANSIBLE](#instalación-de-ansible)
     + [Definición del fichero de inventario](#definición-del-fichero-de-inventario)
     + [PlayBooks básicos](#playbooks-básicos)
@@ -101,7 +101,7 @@ Las Tareas en ANSIBLE son identificables. Sin una gran cantidad de codificación
 Ansible usa estos hechos para comprobar el estado y ver si necesita cambiar algo para obtener el resultado deseado. Esto hace que sea seguro ejecutar Ansible Tasks contra un servidor una y otra vez.
 
 
-### Elementos en ANSIBLE:
+### Elementos en ANSIBLE
 
 - Controller Machine: la máquina donde Ansible está instalado, responsable de ejecutar el aprovisionamiento en los servidores que está gestionando.
 - Inventario: un archivo INI que contiene información sobre los servidores que está gestionando.

@@ -6,16 +6,20 @@ Universidad de Granada.
 
 <HR>
 
-Profesor: **Manuel J. Parra-Royón**
+Profesor: **Francisco Javier Baldán Lozano**
 
-Email: **manuelparra@decsai.ugr.es**
+Email: **fjbaldan@decsai.ugr.es**
 
-Tutorías: **Viernes, de 17:30 a 18:30, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT).**
+Tutorías: **Lunes, de 11:00 a 12:00, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT). Se recomienda concretar las citas por correo.**
 
-Material de prácticas de la asignatura: **https://github.com/manuparra/PracticasCC**
+Material de prácticas de la asignatura: **https://github.com/fjbaldan/PracticasCC**
+
+Francisco Javier Baldán Lozano (fjbaldan@decsai.ugr.es), Enero 2019
+![DICITSlogo](http://sci2s.ugr.es/dicits/images/dicits.png)
+
+Material realizado a partir del trabajo de años anteriores de Manuel Parra & José Manuel Benitez: https://github.com/DiCITS/MasterCienciaDatos2019 & https://github.com/manuparra/PracticasCC
 
 <HR>
-
 
 
 # Sesión 2: Despliegue automatizado de software y servicios 
@@ -23,10 +27,8 @@ Material de prácticas de la asignatura: **https://github.com/manuparra/Practica
 Tabla de contenido:
 
   * [Requisitos iniciales](#requisitos-iniciales)
-  * [Credenciales y acceso inicial](#credenciales-y-acceso-inicial)
-  * [Acceso vía WEB](#acceso-v-a-web)
   * [Acceso vía SSH](#acceso-v-a-ssh)
-  * [Despliegue automatico de servicios y software](#despliegue-automatico-de-servicios-y-software)
+  * [Despliegue automático de servicios y software](#despliegue-automatico-de-servicios-y-software)
   * [Breve introducción a ANSIBLE](#breve-introducci-n-a-ansible)
     + [Elementos en ANSIBLE:](#elementos-en-ansible-)
     + [Instalación de ANSIBLE](#instalación-de-ansible)
@@ -38,68 +40,45 @@ Tabla de contenido:
   * [Despliegue de servicios relacionados con la práctica del curso](#despliegue-de-servicios-relacionados-con-la-práctica-del-curso)
 
 
-
-
 ## Requisitos iniciales
 
-- Tener cuenta de acceso a atcstack.ugr.es.
+- Tener cuenta de correo de alumno de la universidad.
 - Conocimientos básicos del SHELL.
 - Conceptos básicos de Cloud y Máquinas Virtuales.
-
-## Credenciales y acceso inicial
-
-Cada alumno tiene asignado un nombre de usuario y una clave que servirán para autenticarse dentro del cluster de OpenStack. 
-El nombre de usuario y clave asignado a cada alumno se informará en la primera sesión de prácticas.
-
-El acceso al cluster de OpenStack se realiza a través de los siguientes puntos de entrada (*es necesario estar conectado a la VPN de la UGR*):
-
-- Entorno WEB OpenStack Horizon: http://atcstack.ugr.es/dashboard/auth/login/?next=/dashboard/
-- Consola del cluster OpenStack: ssh usuario@atcstack.ugr.es
-
-Para ambos es necesario utilizar las mismas credenciales de acceso.
-
-## Acceso vía WEB
-
-Para acceder vía web, utilizamos un navegador para la dirección:  http://atcstack.ugr.es/dashboard/auth/login/?next=/dashboard/
-
-
-![LoginON](../imgs/login_on.png)
-
-Por defecto en Domain, usamos ``default``
 
 ## Acceso vía SSH
 
 Para usar SSH, utilízalo desde la consola de Linux o bien desde Windows usando la aplicación ``putty``.
 
-Si usas Windows descarga ``putty`` desde: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html e indica los siguientes datos en la pantalla de cofiguración:
+Si usas Windows descarga ``putty`` desde: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html e indica los siguientes datos en la pantalla de configuración:
 
-- Hostname or IP: ``atcstack.ugr.es``
+- Hostname or IP: ``XXXXXXXX``
 - Port: ``22``
 - Connection Type: ``SSH``
 
-Y luego ``Open`` para conectar, donde te pedirá despues las credenciales de acceso.
+Y luego ``Open`` para conectar, donde te pedirá después las credenciales de acceso.
 
 Si usas SSH desde una consola:
 
-``ssh usuario@atcstack.ugr.es``
+``ssh usuario@XXXXXXXX``
 
 
-## Despliegue automatico de servicios y software
+## Despliegue automático de servicios y software
 
 El despliegue de herramientas y servicios, se puede realizar de múltiples formas. Desde las herramientas tradicionales 
 como utilizar un shell-script hasta las más modernas y completas como utilizar ``ansible``, ``chef``, ``puppet`` o ``salt``.
 
 ¿Cuál es la ventaja de usar una de las herramientas de automatización como ``ansible`` ?
 
-No es necesario 'a priori' conocer la distribución de linux o el soporte final del Sistema Operativo sobre el cual vamos 
+No es necesario 'a priori' conocer la distribución de Linux o el soporte final del Sistema Operativo sobre el cual vamos 
 a desplegar el software o los servicios. Con ``ansible`` podemos indicarle que instale unos paquetes, pero no le decimos que use 
-``yum`` para el caso concreto, por lo que es la propia herramienta ``ansible`` la que 'conoce' como tiene que instalar el software para 
+``apt`` para el caso concreto, por lo que es la propia herramienta ``ansible`` la que 'conoce' como tiene que instalar el software para 
 el sistema  final.
 
 Con este tipo de herramientas de automatización conseguiremos:
 
 - Automatizar el aprovisionamiento de máquinas.
-- Centralizar la gestión e instalación de servivios y software.
+- Centralizar la gestión e instalación de servicios y software.
 - Gestionar la configuración de los servicios de esas máquinas.
 - Realizar despliegues y orquestar los servicios.
 - Dotar a nuestros despliegues de solidez.
@@ -111,7 +90,7 @@ los nodos, etc.
 
 Ansible es una herramienta de gestión y aprovisionamiento de configuraciones, similar a Chef, Puppet o Salt.
 
-Sólo SSH:  utiliza SSH para conectarse a servidores y ejecutar las Tareas configuradas en los llamados ``playbooks``.
+Solo SSH:  utiliza SSH para conectarse a servidores y ejecutar las Tareas configuradas en los llamados ``playbooks``.
 
 Una cosa agradable acerca de Ansible es que es muy fácil convertir scripts bash (todavía una manera popular de realizar la gestión de configuración) en Ansible Tasks. Puesto que se basa principalmente en SSH, no es difícil ver por qué este podría ser el caso - Ansible termina ejecutando los mismos comandos.
 
@@ -138,13 +117,12 @@ Ansible usa estos hechos para comprobar el estado y ver si necesita cambiar algo
 
 ### Instalación de ANSIBLE
 
-En el nodo principal de atcstack.ugr.es ya está instalado ANSIBLE, con lo que no tendrás que instalarlo.
+En el nodo principal de Azure ya está instalado ANSIBLE, con lo que no tendrás que instalarlo.
 
-Si lo quieres instalar en las intancias de openstack que hayas creado para orquestar la instalación desde una de ella, usa:
+Si lo quieres instalar en las instancias de Azure que hayas creado para orquestar la instalación desde una de ella, usa:
 
 ```
-sudo yum install epel-release
-sudo yum install ansible
+sudo apt install ansible
 ```
 
 
@@ -155,7 +133,6 @@ Ansible trabaja contra múltiples sistemas en su infraestructura al mismo tiempo
 Este inventario no sólo es configurable, sino que también puede utilizar múltiples archivos de inventario al mismo tiempo y extraer el inventario de fuentes dinámicas o de nube o diferentes formatos (YAML, ini, etc).
 
 Para nuestras prácticas definiremos un fichero de hosts propio, donde se hará el inventario de máquinas que se usarán para todo el curso.
-
 
 
 
@@ -198,54 +175,35 @@ Otro ejemplo para instalar APACHE y PHP:
   become: true
   tasks:
    - name: Install Apache
-     yum: pkg=httpd state=installed 
-   - name: Install Apache
+     yum: pkg=apache2 state=installed 
+   - name: Install PHP
      yum: pkg=php state=installed 
 ```
 
 
-
 ## Despliegue de software y servicios sobre MV
 
-Creamos una nueva instancia dentro de OpenStack. Para esta instancia, usamos una IP del rango correspondiente para cada usuario.
-Esta instancia la usaremos para probar el despliegue de software dentro de la MV.
+Creamos una nueva instancia dentro de Azure. Esta instancia la usaremos para probar el despliegue de software dentro de la MV.
 
-Para crear una instancia, hay que tener en cuenta que como mínimo necesitamos conocer los ``ID`` de los siguientes componentes antes de usar el comando de creación de instancias:
+az vm create \
+    --resource-group myResourceGroup \
+    --name myVMtest \
+    --image UbuntuLTS \
+    --admin-username azureuser \
+    --generate-ssh-keys
 
-- El ``ID`` de la imagen de Sistema Operativo que se desplegará.
-- El ``ID`` del flavor que vamos a utilizar.
-- El ``ID`` de la RED que usaremos.
-- El ``ID`` del grupo de seguridad que aplicaremos.
-- El ``ID`` o ``Name`` del keypair que se usará.
-
-Una vez tengamos todos estos ``ID`` ya podemos lanzar el siguiente comando, teniendo en cuenta la opción ``v4-fixed-ip`` donde se especifica la IP concreta que tendrá la instancia.
-
-Para poder usar ansible con la imagen de FEDORA27, es necesario añadir la directiva ```--user-data``` yun fichero que haga un ```update`` de los paquetes:
-
-Crea un fichero ```update.sh```, que contenga:
-
-```
-#!/bin/bash
-yum -y update
-```
-
-y añadelo a la directiva ```--user-data```:
-
-```
-openstack server create --flavor XXXXX --image XXXXXX  --nic net-id=XXXXXX,v4-fixed-ip=192.168.0.XXX --security-group XXXXXX  --key-name XXXXXXX MI_INSTANCIAIP --user-data 'update.sh'
-```
 
 Nos conectamos a ella:
 
 ```
-ssh -i ficherokey.sh fedora@192.168.0.XXX
+ssh azureuser@192.168.0.XXX
 ```
 
-Si todo es correcto, salimos de la MV creada y volvemos al nodo de atcstack.ugr.es (si estás dentro de la instancia, sal con ``exit``).
+Si todo es correcto, salimos de la MV creada y volvemos al nodo de Azure (si estás dentro de la instancia, sal con ``exit``).
 
 ### Creamos el fichero de inventario
 
-Dentro de tu HOME de atcstack, debes crear un fichero de inventario de hosts. Este fichero contiene la lista de IP/Hosts que 
+Dentro de tu HOME de Azure, debes crear un fichero de inventario de hosts. Este fichero contiene la lista de IP/Hosts que 
 se usarán para desplegar e instalar software.
 
 Para ello, creamos un fichero que se llame por ejemplo ``hosts`` (usa pico, joe, vi/vim, etc...):
@@ -258,10 +216,10 @@ y añadimos el siguiente contenido:
 
 ```
 [MVs]
-192.168.0.110 ansible_ssh_private_key_file=tuficherokey.pem  ansible_connection=ssh ansible_user=fedora
+< IP de tu máquina > ansible_connection=ssh ansible_user=azureuser
 ```
 
-Sustituye la IP ``192.168.0.110``, por la correspondiente de tu instancia.
+Sustituye la IP ``< IP de tu máquina >``, por la correspondiente de tu instancia.
 
 y guardamos el fichero.
 
@@ -271,7 +229,7 @@ Explicamos el contenido del fichero:
 - Línea de hosts:
  - IP de la instancia que queramos desplegar:
  - ansible_ssh_private_key_file=tuficherokey.pem Indica el nombre del fichero de tu llave de ssh que se usará para conectar a la instancia.
- - ansible_user=fedora Indica el usuario que usaremos para conectar
+ - ansible_user=azureuser Indica el usuario que usaremos para conectar
 
 
 En este fichero iremos guardando todo el inventario de MVs que tengamos que desplegar con software o servicios para la práctica. En él tendrás que ir añadiendo todas tus instancias.
@@ -297,7 +255,7 @@ Y ahora ejecutamos:
 ansible-playbook -s nginx.yml -i hosts
 ```
 
-Ya está instalado NGINX, pero no está iniciado en la MV, por lo que tenemos que añadir al fichero ``nginx.yml`` lo siguiente, un manejador:
+Ya está instalado NGINX, pero no está iniciado en la MV, por lo que tenemos que añadir al fichero ``nginx.yml`` lo siguiente, un gestor:
 
 ```
 ---
@@ -315,18 +273,18 @@ Ya está instalado NGINX, pero no está iniciado en la MV, por lo que tenemos qu
 ```
 
 
-Comprobamos que podemos ver la web que se ha despleglado:
+Comprobamos que podemos ver la web que se ha desplegado:
 
 ```
-lynx 192.168.0.XXX
+lynx < IP de tu máquina >
 ```
 
-*Recuerda abrir el puerto 80 en tus politicas de seguridad de grupo*
+*Recuerda abrir el puerto 80 en tus políticas de seguridad de grupo*
 
 
 ## Despliegue de servicios relacionados con la práctica del curso
 
-Para la primera práctica necesitaremos una serie de servicios que se habilitarán desde las instancias que se crearán de forma programatica.
+Para la primera práctica necesitaremos una serie de servicios que se habilitarán desde las instancias que se crearán de forma programática.
 
 Estas instancias deben contener un software específico para cada servicio que se despliega en ellas y que servirá para 
 
@@ -337,9 +295,4 @@ Necesitaremos instalar en instancias separadas:
 - Nodos de servicio (1-2 nodos):
  - Servicio de contenedores (docker)
 - Nodo de Base de Datos (1 nodo)
-- Nodo para autenticacion (1 nodo)
-
-
-
-
-
+- Nodo para autenticación (1 nodo)

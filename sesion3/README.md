@@ -154,12 +154,7 @@ Los contenedores incluyen la aplicación y todas sus dependencias, pero **compar
 
 Kata Containers es un nuevo proyecto de código abierto que construye máquinas virtuales extremadamente ligeras que se conectan perfectamente al ecosistema de contenedores.
 
-Kata Containers es un proyecto de código abierto y la comunidad que trabaja para construir una implementación estándar de Máquinas Virtuales (VMs) ligeras que se sienten y funcionan como contenedores, pero proporcionan las ventajas de aislamiento de carga de trabajo y seguridad de las máquinas virtuales.
-
-Kata Containers es un proyecto de código abierto y la comunidad que trabaja para construir una implementación estándar de Máquinas Virtuales (VMs) ligeras que se sienten y funcionan como contenedores, pero proporcionan las ventajas de aislamiento de carga de trabajo y seguridad de las máquinas virtuales.
-
-
-![KataContainers](https://katacontainers.io/img/kata-explained1@2x.png)
+Se trabaja para construir una implementación estándar de Máquinas Virtuales (VMs) ligeras que se sienten y funcionan como contenedores, pero proporcionan las ventajas de aislamiento de carga de trabajo y seguridad de las máquinas virtuales.
 
 ## Ventajas de DOCKER
 
@@ -173,7 +168,7 @@ Las capacidades de aislamiento de los contenedores Docker liberan a los desarrol
 
 **Olvídate de las inconsistencias.**
 
-Embalaje de una aplicación en un contenedor con sus configuraciones y dependencias garantiza que la aplicación funcionará siempre según lo diseñado en cualquier entorno: localmente, en otra máquina, en prueba o producción. No más preocupaciones de tener que instalar las mismas configuraciones en diferentes entornos.
+El empaquetado de una aplicación en un contenedor con sus configuraciones y dependencias garantiza que la aplicación funcionará siempre según lo diseñado en cualquier entorno: localmente, en otra máquina, en prueba o producción. No más preocupaciones de tener que instalar las mismas configuraciones en diferentes entornos.
 
 **Comparte tus contenedores.**
 

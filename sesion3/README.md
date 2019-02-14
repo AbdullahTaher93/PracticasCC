@@ -36,12 +36,12 @@ Tabla de contenido:
   * [Ventajas de DOCKER](#ventajas-de-docker)
   * [Despliegue de Contenedores](#despliegue-de-contenedores)
     + [Instalación de DOCKER en tiempo de instanciación](#instalación-de-docker-en-tiempo-de-instanciación)
-    + [Trabajo con DOCKER: Gestión de contenedores](#trabajo-con-docker:-gestión-de-contenedores)
+    + [Trabajo con DOCKER: Gestión de contenedores](#trabajo-con-docker-gestión-de-contenedores)
       - [Parametrización de contenedores con DOCKER](#parametrización-de-contenedores-con-docker)
     + [Creación de contenedores enlazados](#creación-de-contenedores-enlazados)
       - [Maquina Virtual 1](#maquina-virtual-1)
       - [Maquina Virtual 2](#maquina-virtual-2)
-    + [Instalación del servicio completo OWNCLOUD + MYSQL](#instalación-del-servicio-completo-owncloud-+-mysql)
+    + [Instalación del servicio completo OWNCLOUD + MYSQL](#instalación-del-servicio-completo-owncloud-mysql)
 
 
 

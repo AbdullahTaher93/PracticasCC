@@ -28,7 +28,6 @@ Material realizado a partir del trabajo de años anteriores de Manuel Parra & Jo
 Tabla de contenido:
 
   * [Requisitos iniciales](#requisitos-iniciales)
-  * [Credenciales y acceso inicial](#credenciales-y-acceso-inicial)
   * [Acceso vía SSH](#acceso-vía-ssh)
   * [Despliegue y gestión de servicios de autenticación de usuarios](#despliegue-y-gestión-de-servicios-de-autenticación-de-usuarios)
     + [Entrenando con LDAP](#entrenando-con-ldap)

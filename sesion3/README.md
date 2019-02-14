@@ -6,88 +6,69 @@ Universidad de Granada.
 
 <HR>
 
-Profesor: **Manuel J. Parra-Royón**
+Profesor: **Francisco Javier Baldán Lozano**
 
-Email: **manuelparra@decsai.ugr.es**
+Email: **fjbaldan@decsai.ugr.es**
 
-Tutorías: **Viernes, de 17:30 a 18:30, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT).**
+Tutorías: **Lunes, de 11:00 a 12:00, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT). Se recomienda concretar las citas por correo.**
 
-Material de prácticas de la asignatura: **https://github.com/manuparra/PracticasCC**
+Material de prácticas de la asignatura: **https://github.com/fjbaldan/PracticasCC**
+
+Francisco Javier Baldán Lozano (fjbaldan@decsai.ugr.es), Enero 2019
+![DICITSlogo](http://sci2s.ugr.es/dicits/images/dicits.png)
+
+Material realizado a partir del trabajo de años anteriores de Manuel Parra & José Manuel Benitez: https://github.com/DiCITS/MasterCienciaDatos2019 & https://github.com/manuparra/PracticasCC
 
 <HR>
 
 
-
-# Sesión : Despliegue de servicios en contenedores
+# Sesión 3: Despliegue de servicios en contenedores
 
 Tabla de contenido:
 
-  * [Credenciales y acceso inicial](#credenciales-y-acceso-inicial)
-  * [Acceso vía WEB](#acceso-v-a-web)
-  * [Acceso vía SSH](#acceso-v-a-ssh)
-  * [Despliegue automatico de servicios y software](#despliegue-automatico-de-servicios-y-software)
-    + [Creación de script de inicio/parada y orquestación de MVs](#creaci-n-de-script-de-inicio-parada-y-orquestaci-n-de-mvs)
+  * [Acceso vía SSH](#acceso-vía-ssh)
+  * [Despliegue automático de servicios y software](#despliegue-automático-de-servicios-y-software)
+    + [Creación de script de inicio/parada y orquestación de MVs](#creaci-n-de-script-de-inicio-parada-y-orquestación-de-mvs)
   * [Contenedores con DOCKER](#contenedores-con-docker)
     + [VIRTUAL MACHINES](#virtual-machines)
     + [CONTAINERS](#containers)
     + [KATAContainers](#katacontainers)
   * [Ventajas de DOCKER](#ventajas-de-docker)
   * [Despliegue de Contenedores](#despliegue-de-contenedores)
-    + [Instalación de DOCKER en tiempo de instanciación](#instalaci-n-de-docker-en-tiempo-de-instanciaci-n)
+    + [Instalación de DOCKER en tiempo de instanciación](#instalación-de-docker-en-tiempo-de-instanciación)
     + [Trabajo con DOCKER: Gestión de contenedores](#trabajo-con-docker--gesti-n-de-contenedores)
-      - [Parametrización de contenedores con DOCKER](#parametrizaci-n-de-contenedores-con-docker)
-    + [Creación de contenedores enlazados](#creaci-n-de-contenedores-enlazados)
+      - [Parametrización de contenedores con DOCKER](#parametrización-de-contenedores-con-docker)
+    + [Creación de contenedores enlazados](#creación-de-contenedores-enlazados)
       - [Maquina Virtual 1](#maquina-virtual-1)
       - [Maquina Virtual 2](#maquina-virtual-2)
-    + [Instalación del servicio completo OWNCLOUD + MYSQL](#instalaci-n-del-servicio-completo-owncloud---mysql)
+    + [Instalación del servicio completo OWNCLOUD + MYSQL](#instalación-del-servicio-completo-owncloud-+-mysql)
 
 
 
 ## Requisitos iniciales
 
-- Tener cuenta de acceso a atcstack.ugr.es.
+- Tener cuenta de correo de alumno de la universidad.
 - Conocimientos básicos del SHELL.
 - Conceptos básicos de Cloud y Máquinas Virtuales.
-
-## Credenciales y acceso inicial
-
-Cada alumno tiene asignado un nombre de usuario y una clave que servirán para autenticarse dentro del cluster de OpenStack. 
-El nombre de usuario y clave asignado a cada alumno se informará en la primera sesión de prácticas.
-
-El acceso al cluster de OpenStack se realiza a través de los siguientes puntos de entrada (*es necesario estar conectado a la VPN de la UGR*):
-
-- Entorno WEB OpenStack Horizon: http://atcstack.ugr.es/dashboard/auth/login/?next=/dashboard/
-- Consola del cluster OpenStack: ssh usuario@atcstack.ugr.es
-
-Para ambos es necesario utilizar las mismas credenciales de acceso.
-
-## Acceso vía WEB
-
-Para acceder vía web, utilizamos un navegador para la dirección:  http://atcstack.ugr.es/dashboard/auth/login/?next=/dashboard/
-
-
-![LoginON](../imgs/login_on.png)
-
-Por defecto en Domain, usamos ``default``
 
 ## Acceso vía SSH
 
 Para usar SSH, utilízalo desde la consola de Linux o bien desde Windows usando la aplicación ``putty``.
 
-Si usas Windows descarga ``putty`` desde: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html e indica los siguientes datos en la pantalla de cofiguración:
+Si usas Windows descarga ``putty`` desde: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html e indica los siguientes datos en la pantalla de configuración:
 
-- Hostname or IP: ``atcstack.ugr.es``
+- Hostname or IP: ``XXXXXXXX``
 - Port: ``22``
 - Connection Type: ``SSH``
 
-Y luego ``Open`` para conectar, donde te pedirá despues las credenciales de acceso.
+Y luego ``Open`` para conectar, donde te pedirá después las credenciales de acceso.
 
 Si usas SSH desde una consola:
 
-``ssh usuario@atcstack.ugr.es``
+``ssh usuario@XXXXXXXX``
 
 
-## Despliegue automatico de servicios y software
+## Despliegue automático de servicios y software
 
 ### Creación de script de inicio/parada y orquestación de MVs
 
@@ -107,8 +88,8 @@ El **script** recibirá los parámetros siguientes:
 Necesitarás conocer:
 
 - Programación en BASH o utilizar el lenguaje que más te guste
-- Instanciación de MV con OpenStack
-- Uso de Cloud-Init
+- Instanciación de MV con Microsoft Azure
+
 
 Un ejemplo de script.sh
 
@@ -116,24 +97,33 @@ Un ejemplo de script.sh
 #!/bin/bash
 
 #Accion
-accion = $1
+accion="$1"
 
-# Flavor
-flavor = $2
+flavor="$2"
 
-...
+
 
 # Para cada una de las IPs que tenemos asignadas:
 
-openstack create server --flavor $flavor .... CC_MV_01_$name ... --user-data software.sh
-openstack create server --flavor $flavor .... CC_MV_02_$name ... --user-data software.sh
+az vm create \
+    --resource-group $1 \
+    --name $2 \
+    --image UbuntuLTS \
+    --admin-username azureuser \
+    --generate-ssh-keys
 
+az vm create \
+    --resource-group $1 \
+    --name $3 \
+    --image UbuntuLTS \
+    --admin-username azureuser \
+    --generate-ssh-keys
 ```
 
 La llamada sería:
 
 ```
-sh crearcluster.sh crear m1.medium MisMVs RedPredeterminada ....
+sh crearcluster.sh myResourceGroup myVM1 myVM2 ....
 ```
 
 Hay que tener en cuenta lo siguiente en el script:
@@ -177,7 +167,7 @@ Kata Containers es un proyecto de código abierto y la comunidad que trabaja par
 
 Deje de perder horas configurando entornos de desarrollador, creando nuevas instancias y haciendo copias del código de producción para ejecutar localmente. Con Docker, simplemente tome copias de su entorno en directo y ejecútelas en cualquier punto final nuevo que ejecute un motor Docker.
 
-**Trabajo confortablemente**
+**Trabaja confortablemente**
 
 Las capacidades de aislamiento de los contenedores Docker liberan a los desarrolladores de limitaciones: pueden utilizar el mejor lenguaje y las mejores herramientas para sus servicios de aplicaciones sin preocuparse de causar conflictos internos de herramientas.
 
@@ -205,52 +195,65 @@ Docker se ejecuta en Windows, Mac y Linux.
 
 ## Despliegue de Contenedores
 
-Para empezar a trabajar con los contenedores, usaremos varias MVs creadas desde OpenStack. Estas MVs deben tener instalado Docker para poder trabajar con los servicios de contenedores.
+Para empezar a trabajar con los contenedores, usaremos varias MVs creadas desde Azure. Estas MVs deben tener instalado Docker para poder trabajar con los servicios de contenedores.
 
 Para ello, necesitamos:
 
-- Crear una Máquina Virtual con una IP de la lista de IPs de usuario.
-- Instalarle el software:
-  - En tiempo de instanciacion con CLOUD-INIT
+- Crear una Máquina Virtual.
+- Instalar el software:
+  - En tiempo de instanciación con CLOUD-INIT
   - En tiempo de ejecución con ANSIBLE
 
 ### Instalación de DOCKER en tiempo de instanciación
 
-Para poder tener DOCKER en tiempo de instanciación es necesario al crear la MV desde OpenStack, utilizar la directiva ``--user-data`` y crear un fichero ``bash`` con el nombre por ejemplo de ``setupdocker.sh`` con los siguientes comandos:
+Para poder tener DOCKER en tiempo de instanciación es necesario al crear la MV desde Azure, utilizar la directiva ``--custom-data`` y crear un fichero ``bash`` con el nombre por ejemplo de ``setupdocker.sh`` con los siguientes comandos:
+
+Comandos obtenidos del tutorial: https://crunchytechbytz.wordpress.com/2018/06/25/how-to-install-docker-in-ubuntu-18-04/
 
 ```
 #!/bin/bash
 
-yum update
+sudo apt update
 
-yum -y install docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
-systemctl start docker
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable edge"
 
-systemctl enable docker
+apt-cache policy docker-ce
+
+sudo apt-get install -y docker-ce
+
+docker --version
 
 ```
 
-De modo que la llamada a openstack será:
+De modo que la llamada a Azure será:
 
 ```
-openstack server create ..... --user-data setupdocker.sh
+az vm create \
+    --resource-group myResourceGroup \
+    --name M2 \
+    --image UbuntuLTS \
+    --admin-username azureuser \
+    --generate-ssh-keys \
+    --custom-data setupdocker.sh
+
 ```
 
-Ahora nos conectamos a la MV recien creada, que deberá tener instalado DOCKER, y comenzamos a usar los comandos de Docker:
+Ahora nos conectamos a la MV recién creada, que deberá tener instalado DOCKER, y comenzamos a usar los comandos de Docker:
 
 ### Trabajo con DOCKER: Gestión de contenedores
 
-Nos conectamos a la MV recien creada con 
+Nos conectamos a la MV recién creada con 
 
 ```
-ssh -i fichero.pem fedora@<tu IP asignada>
+ssh azureuser@<IP de tu máquina>
 ```
 
 Primero de todo, comprueba que tienes acceso al sistema docker, prueba este comando:
 
 ```
-docker run hello-world
+sudo docker run hello-world
 ```
 
 Y le devolverá un mensaje en el que se mostrará que su instalación parece estar funcionando correctamente y podrá utilizarla.
@@ -268,13 +271,13 @@ Pero también puedes construir tu propio contenedor con todo lo que necesites. P
 Lo primero que necesitamos es descargar la imagen docker de nginx, para ello comprobamos si la imagen está en la lista de imágenes disponibles:
 
 ```
-docker images
+sudo docker images
 ```
 
 Si la imagen no se encuentra localmente, Docker la sacará de Docker Hub y la usará:
 
 ```
-docker pull nginx
+sudo docker pull nginx
 ```
 
 Descargará la imagen del contenedor nginx. 
@@ -282,19 +285,19 @@ Descargará la imagen del contenedor nginx.
 Y ahora puedes ver si la imagen está en el repositorio de imágenes usando:
 
 ```
-docker images
+sudo docker images
 ```
 
 ```
-REPOSITORY                        TAG                 IMAGE ID            CREATED             SIZE
-docker.io/nginx                   latest              abf312888d13        12 days ago         181.5 MB
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               latest              42b4762643dc        7 days ago          109MB
 ...
 ```
 
-Ejecute el container, utilizando la siguiente sintaxis:
+Ejecute el contenedor, utilizando la siguiente sintaxis:
 
 ```
-docker run -d -p <yourport>:<containerport> --name <mynameofcontainer> <container>
+docker run -d -p < yourport >:< containerport > --name < mynameofcontainer > < container >
 ```
 
 Opciones:
@@ -303,19 +306,19 @@ Opciones:
 
 ``-p Publish a container's port(s) to the host``
 
-``--name Name of your contaniner i.e. 'containerofmanuparra'``
+``--name Name of your contaniner i.e. 'containeroffjbaldan'``
 
-``<container> This is the container that will be executed`` 
+``< container > This is the container that will be executed`` 
 
 Así que ejecutamos:
 
 ```
-docker run -d -p <yourport>:80 --name testnginx nginx
+docker run -d -p < yourport >:80 --name testnginx nginx
 ```
 
-En  ``<yourport>`` escribe el número de tu puerto asignado en la lista de puertos, aunque al ser un contenedor local a la MV se usará el mismo puerto de Entrada como de Salida.
+En  ``< yourport >`` escribe el número de tu puerto asignado en la lista de puertos, aunque al ser un contenedor local a la MV se usará el mismo puerto de Entrada como de Salida.
 
-Para comprobar que el contendore está lanzado:
+Para comprobar que el contenedor está lanzado:
 
 ```
 docker ps
@@ -324,9 +327,9 @@ docker ps
 Esto devuelve:
 
 ```
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                            NAMES
-52ad2efb9fff        nginx               "nginx -g 'daemon off"   12 minutes ago      Up 12 minutes       443/tcp, 0.0.0.0:14000->80/tcp   testnginx
-...
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+a69e4481a5fb        nginx               "nginx -g 'daemon of…"   9 seconds ago       Up 9 seconds        0.0.0.0:2001->80/tcp   testnginx
+
 ```
 
 Donde ``container ID`` es el único ID de su Contenedor. Puede utilizar el ID de contenedor o NOMBRES para referirse a su contenedor. ``IMAGE`` es el nombre de la imagen contenedor. "PORTS" muestra la correspondencia de los puertos entre el servidor y el contenedor docker.
@@ -335,18 +338,15 @@ Donde ``container ID`` es el único ID de su Contenedor. Puede utilizar el ID de
 Y ahora, ve a tu navegador y escribe (cuando este disponible):
 
 ```
-http://atcstack.ugr.es:<yourport>/
+http://< IP de tu MV >:< yourport >/
 ```
 
-En caso contrario, usa tu sessión con X-Forwarding para SSH, con lo que tendrás que usar:
-
+Puedes comprobar de forma local si el contenedor está funcionando correctamente:
 ```
-http://IPASIGNADAMV:<yourport>/
+lynx localhost:< yourport >
 ```
 
-En ``<yourport>`` debes poner 80 si lo has dejado por defecto en el contenedor.
-
-![nginxDocker](https://sites.google.com/site/manuparra/home/docker_nginx.png)
+En ``< yourport >`` debes poner 80 si lo has dejado por defecto en el contenedor.
 
 
 #### Parametrización de contenedores con DOCKER
@@ -471,22 +471,22 @@ Para esta parte borraremos la MV que hemos creado anteriormente y crearemos dos 
 
 #### Maquina Virtual 1
 
-Esta MV contendrá DOCKER y un Contenedor ejecutandose con OWCLOUD en el puerto 80 (o HTTPS).
+Esta MV contendrá DOCKER y un Contenedor ejecutándose con OWCLOUD en el puerto 80 (o HTTPS).
 
 ```
-docker pull owncloud
-docker run -d -p 80:80 owncloud:8.1
+sudo docker pull owncloud
+sudo docker run -d -p 80:80 owncloud:8.1
 ```
 
 **Recuerda cargar este despliegue en tu fichero ´´cloud-init´´ o en tu ``playbook`` de ansible.**
 
-**Además añade la regla en las politicas de seguridad del puerto correspondiente para servicio en la MV.**
+**Además añade la regla en las políticas de seguridad del puerto correspondiente para servicio en la MV.**
 
 
 Para comprobar que funciona ve a:
 
 - Si estás usando X-Forwarding para SSH usa firefox y pon `http://192.168.0...:80``
-- En caso contrario ve a tu navegador a ``http://atcstack.ugr.es:<tupuertoparatuMV>``
+- En caso contrario ve a tu navegador a ``http://< IP de tu máquina >:< tupuertoparatuMV >``
 
 Para ambos casos, verás algo como esto:
 
@@ -496,13 +496,13 @@ Es la instalación de OwnCloud, donde necesitarás indicar una usuario administr
 
 #### Maquina Virtual 2
 
-Esta MV contendrá DOCKER y un Contenedor ejecutandose con MYSQL en el puerto por defecto de MySQL.
+Esta MV contendrá DOCKER y un Contenedor ejecutándose con MYSQL en el puerto por defecto de MySQL.
 
-Usa el contendor siguiente por ejemplo:
+Usa el contenedor siguiente por ejemplo:
 
 ```
-docker pull mysql/mysql-server
-docker run --name=mysql01 -d mysql/mysql-server:latest
+sudo docker pull mysql/mysql-server
+sudo docker run --name=mysql01 -d mysql/mysql-server:latest
 
 ```
 
@@ -519,10 +519,3 @@ Por lo que tienes que:
 
 - Acceder al servicio de OWNCLOUD en http://192.168.0.XXX
 - Asignarle en el SetUP de OWNLOUD el servidor de MySQL.
-
-
-
-
-
-
-

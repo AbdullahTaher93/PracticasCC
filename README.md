@@ -59,7 +59,7 @@ Tabla de contenido:
     + [Instalamos un servicio web](./sesion2/README.md#instalamos-un-servicio-web)
   * [Despliegue de servicios relacionados con la práctica del curso](./sesion2/README.md#despliegue-de-servicios-relacionados-con-la-práctica-del-curso)
 
-# Sesión 3:
+# Sesión 3: Despliegue de servicios en contenedores
 
 Tabla de contenido:
 
@@ -81,7 +81,7 @@ Tabla de contenido:
     + [Instalación del servicio completo OWNCLOUD + MYSQL](./sesion3/README.md#instalación-del-servicio-completo-owncloud--mysql)
 
 
-# Sesión 4:
+# Sesión 4: Despliegue de servicios en contenedores
 
 Tabla de contenido:
 

@@ -15,6 +15,7 @@ Tutorías: **Lunes, de 11:00 a 12:00, despacho D31 (4ª planta) Escuela Técnica
 Material de prácticas de la asignatura: **https://github.com/fjbaldan/PracticasCC**
 
 Francisco Javier Baldán Lozano (fjbaldan@decsai.ugr.es), Febrero 2019
+
 ![DICITSlogo](http://sci2s.ugr.es/dicits/images/dicits.png)
 
 Material realizado a partir del trabajo de años anteriores de Manuel Parra & José Manuel Benitez: https://github.com/DiCITS/MasterCienciaDatos2019 & https://github.com/manuparra/PracticasCC

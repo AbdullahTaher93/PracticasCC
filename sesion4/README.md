@@ -36,15 +36,14 @@ Tabla de contenido:
     + [Atributos](#atributos)
     + [Entradas](#entradas)
     + [DIT](#dit)
-    + [Distinguished name (dn). Nombre distinguido.](#distinguished-name-(dn)-nombre-distinguido)
-    + [Ejemplo de la estructura de LDAP](#ejemplo-de-la-estructura-de-ldap)
+    + [Distinguished name (dn). Nombre distinguido.](#distinguished-name-dn-nombre-distinguido)
   * [Verificando el estado del directorio LDAP](#verificando-el-estado-del-directorio-ldap)
     + [Añadir un nuevo usuario](#a-adir-un-nuevo-usuario)
   * [Cambiar el Password de un usuario en LDAP](#cambiar-el-password-de-un-usuario-en-ldap)
-    + [Modificando cuentas de usuario con LDAP: DELETE, MODIFY.](#modificando-cuentas-de-usuario-con-ldap--delete--modify)
-  * [Añadir una UO a LDAP:](#a-adir-una-uo-a-ldap-)
+    + [Modificando cuentas de usuario con LDAP: DELETE, MODIFY.](#modificando-cuentas-de-usuario-con-ldap-delete-modify)
+  * [Añadir una UO a LDAP](#añadir-una-uo-a-ldap)
   * [Buscando y encontrado dentro del DIT](#buscando-y-encontrado-dentro-del-dit)
-  * [Ejercicio: Crear un servicio de directorio LDAP en contenedor dentro de una MV](#ejercicio--crear-un-servicio-de-directorio-ldap-en-contendor-dentro-de-una-mv)
+  * [Ejercicio: Crear un servicio de directorio LDAP en contenedor dentro de una MV](#ejercicio-crear-un-servicio-de-directorio-ldap-en-contendor-dentro-de-una-mv)
 
 
 ## Requisitos iniciales
@@ -387,7 +386,7 @@ ldapsearch -H ldap://localhost -LL -b ou=Users,dc=openstack,dc=org -x
 Verifica si la entidad ya no está.
 
 
-## Añadir una UO a LDAP:
+## Añadir una UO a LDAP
 
 Crear un nuevo fichero ``ldif`` . i.e. ``add_new_ou.ldif`` con :
 

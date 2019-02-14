@@ -24,6 +24,25 @@ Material realizado a partir del trabajo de años anteriores de Manuel Parra & Jo
 
 # Sesión 1: Microsoft AZURE
 
+Tabla de contenido:
+
+  * [Requisitos iniciales](#requisitos-iniciales)
+  * [Registro de alumnos](#registro-de-alumnos)
+  * [Comenzando con máquinas virtuales (MV o VM)](#comenzando-con-máquinas-virtuales-MV-o-VM)
+  * [Creación del agrupamiento de recursos](#creación-del-agrupamiento-de-recursos)
+  * [Creación de una máquina virtual](#creación-de-una-máquina-virtual)
+  * [Conéctese a la VM](#conéctese-a-la-vm)
+  * [Mercado de imágenes VM](#mercado-de-imágenes-VM)
+  * [Máquinas virtuales funcionando](#máquinas-viruales-funcionando)
+  * [Características de una máquina virtual](#características-de-una-máquina-virtual)
+  * [Parar una máquina virtual](#parar-una-máquina-virtual)
+  * [Iniciar una máquina virtual](#iniciar-una-máquina-virtual)
+  * [Reiniciar una máquina virtual](#reiniciar-una-máquina-virtual)
+  * [Eliminar una máquina virtual](#eliminar-una-máquina-virtual)
+  * [Abrir puertos de una máquina virtual](#abrir-puertos-de-una-máquina-virtual)
+  * [Ejercicio práctico A (instalación de servicios de forma manual)](#ejercicio-práctico-a-instalación-de-servicios-de-forma-manual)
+  
+
 # Empezando con servicios de Cloud Computing: 
 
 ## Requisitos iniciales

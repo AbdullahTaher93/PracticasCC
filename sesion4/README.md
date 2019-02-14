@@ -6,27 +6,30 @@ Universidad de Granada.
 
 <HR>
 
-Profesor: **Manuel J. Parra-Royón**
+Profesor: **Francisco Javier Baldán Lozano**
 
-Email: **manuelparra@decsai.ugr.es**
+Email: **fjbaldan@decsai.ugr.es**
 
-Tutorías: **Viernes, de 17:30 a 18:30, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT).**
+Tutorías: **Lunes, de 11:00 a 12:00, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT). Se recomienda concretar las citas por correo.**
 
-Material de prácticas de la asignatura: **https://github.com/manuparra/PracticasCC**
+Material de prácticas de la asignatura: **https://github.com/fjbaldan/PracticasCC**
+
+Francisco Javier Baldán Lozano (fjbaldan@decsai.ugr.es), Enero 2019
+![DICITSlogo](http://sci2s.ugr.es/dicits/images/dicits.png)
+
+Material realizado a partir del trabajo de años anteriores de Manuel Parra & José Manuel Benitez: https://github.com/DiCITS/MasterCienciaDatos2019 & https://github.com/manuparra/PracticasCC
 
 <HR>
 
 
-
-# Sesión : Despliegue de servicios en contenedores
+# Sesión 4: Despliegue de servicios en contenedores
 
 Tabla de contenido:
 
   * [Requisitos iniciales](#requisitos-iniciales)
   * [Credenciales y acceso inicial](#credenciales-y-acceso-inicial)
-  * [Acceso vía WEB](#acceso-v-a-web)
-  * [Acceso vía SSH](#acceso-v-a-ssh)
-  * [Despliegue y gestión de servicios de autenticación de usuarios](#despliegue-y-gesti-n-de-servicios-de-autenticaci-n-de-usuarios)
+  * [Acceso vía SSH](#acceso-vía-ssh)
+  * [Despliegue y gestión de servicios de autenticación de usuarios](#despliegue-y-gestión-de-servicios-de-autenticación-de-usuarios)
     + [Entrenando con LDAP](#entrenando-con-ldap)
     + [LDAP Basics](#ldap-basics)
     + [Objetos y clases](#objetos-y-clases)
@@ -41,58 +44,37 @@ Tabla de contenido:
     + [Modificando cuentas de usuario con LDAP: DELETE, MODIFY.](#modificando-cuentas-de-usuario-con-ldap--delete--modify)
   * [Añadir una UO a LDAP:](#a-adir-una-uo-a-ldap-)
   * [Buscando y encontrado dentro del DIT](#buscando-y-encontrado-dentro-del-dit)
-  * [Ejercicio: Crear un servicio de directorio LDAP en contendor dentro de una MV](#ejercicio--crear-un-servicio-de-directorio-ldap-en-contendor-dentro-de-una-mv)
+  * [Ejercicio: Crear un servicio de directorio LDAP en contenedor dentro de una MV](#ejercicio--crear-un-servicio-de-directorio-ldap-en-contendor-dentro-de-una-mv)
 
 
 ## Requisitos iniciales
 
-- Tener cuenta de acceso a atcstack.ugr.es.
+- Tener cuenta de correo de alumno de la universidad.
 - Conocimientos básicos del SHELL.
 - Conceptos básicos de Cloud y Máquinas Virtuales.
 
-## Credenciales y acceso inicial
-
-Cada alumno tiene asignado un nombre de usuario y una clave que servirán para autenticarse dentro del cluster de OpenStack. 
-El nombre de usuario y clave asignado a cada alumno se informará en la primera sesión de prácticas.
-
-El acceso al cluster de OpenStack se realiza a través de los siguientes puntos de entrada (*es necesario estar conectado a la VPN de la UGR*):
-
-- Entorno WEB OpenStack Horizon: http://atcstack.ugr.es/dashboard/auth/login/?next=/dashboard/
-- Consola del cluster OpenStack: ssh usuario@atcstack.ugr.es
-
-Para ambos es necesario utilizar las mismas credenciales de acceso.
-
-## Acceso vía WEB
-
-Para acceder vía web, utilizamos un navegador para la dirección:  http://atcstack.ugr.es/dashboard/auth/login/?next=/dashboard/
-
-
-![LoginON](../imgs/login_on.png)
-
-Por defecto en Domain, usamos ``default``
 
 ## Acceso vía SSH
 
 Para usar SSH, utilízalo desde la consola de Linux o bien desde Windows usando la aplicación ``putty``.
 
-Si usas Windows descarga ``putty`` desde: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html e indica los siguientes datos en la pantalla de cofiguración:
+Si usas Windows descarga ``putty`` desde: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html e indica los siguientes datos en la pantalla de configuración:
 
-- Hostname or IP: ``atcstack.ugr.es``
+- Hostname or IP: ``XXXXXXXX``
 - Port: ``22``
 - Connection Type: ``SSH``
 
-Y luego ``Open`` para conectar, donde te pedirá despues las credenciales de acceso.
+Y luego ``Open`` para conectar, donde te pedirá después las credenciales de acceso.
 
 Si usas SSH desde una consola:
 
-``ssh usuario@atcstack.ugr.es``
-
+``ssh usuario@XXXXXXXX``
 
 ## Despliegue y gestión de servicios de autenticación de usuarios
 
-Para esta sesión usaremos un servicio de LDAP ya creado dentro de ATCSTACK. Este servicio se encuentra en:
+Para esta sesión usaremos un servicio de LDAP ya creado dentro de Azure. Este servicio se encuentra en:
 
-- Servidor de LDAP - IP: **192.168.0.77**
+- Servidor de LDAP - IP: **IP dada en clase**
 - Puertos del servicio: **389** y **636**
 
 El servicio es compartido por todos los usuarios:
@@ -125,7 +107,7 @@ El paquete openldap-client instala herramientas que se utilizan para añadir, mo
 LDAP es un protocolo ligero para acceder a servidores de directorios. Vale, ¿qué es un servidor de directorios? Es una base de datos jerárquica orientada a objetos.
 
 ### Objetos y clases
-Los datos en LDAP se almacenan en objetos. Estos objetos contienen varios atributos, que son básicamente un conjunto de pares clave/valor. Puesto que los datos en LDAP están estructurados, los objetos sólo pueden contener claves válidas y las claves válidas dependen de la clase del objeto. Las clases en LDAP pueden definir atributos obligatorios y opcionales y su tipo.
+Los datos en LDAP se almacenan en objetos. Estos objetos contienen varios atributos, que son básicamente un conjunto de pares clave/valor. Puesto que los datos en LDAP están estructurados, los objetos solo pueden contener claves válidas y las claves válidas dependen de la clase del objeto. Las clases en LDAP pueden definir atributos obligatorios y opcionales y su tipo.
 
 
 *Las clases se asignan a objetos utilizando el atributo objectClass. LDAP define por defecto algunas clases básicas, tipos y métodos de comparación, pero usted es libre de definir los suyos propios.*
@@ -137,7 +119,7 @@ Los datos mismos en un sistema LDAP se almacenan principalmente en elementos lla
 
 ```
 ...
-home: /home/mparra
+home: /home/fjbaldan
 ...
 ```
 
@@ -151,12 +133,12 @@ Una entrada es básicamente una colección de atributos bajo un nombre usado par
 
 ```
 # LDAP user entry example
-dn: cn=mparra,ou=Users,dc=openstack,dc=org
+dn: cn=fjbaldan,ou=Users,dc=openstack,dc=org
 objectClass: top
 objectClass: account
 objectClass: posixAccount
 objectClass: shadowAccount
-cn: mparra
+cn: fjbaldan
 ...
 ```
 
@@ -175,7 +157,7 @@ Funciona como una ruta completa de regreso a la raíz de los árboles de informa
 Por ejemplo, por ejemplo:
 
 ```
-dn: cn=mparra,ou=Users,dc=openstack,dc=org
+dn: cn=fjbaldan,ou=Users,dc=openstack,dc=org
 ```
 
 - cn: Common name
@@ -186,7 +168,7 @@ dn: cn=mparra,ou=Users,dc=openstack,dc=org
 
 El padre directo es una entrada llamada ``ou=Users`` que se utiliza como contenedor para las entradas que describen a los usuarios.
 
-Los padres de esta entrada derivan del nombre de dominio "openenstack.org", que funciona como la raíz de nuestro DIT.
+Los padres de esta entrada derivan del nombre de dominio "openstack.org", que funciona como la raíz de nuestro DIT.
 
 Éstos se utilizan a menudo para las categorías generales bajo la entrada DIT de nivel superior, cosas como ``ou=personas, ou=grupos, y ou=inventario``` son los más comunes.
 
@@ -198,12 +180,14 @@ Los padres de esta entrada derivan del nombre de dominio "openenstack.org", que 
 
 ## Verificando el estado del directorio LDAP
 
-Primero comprueba que estás dentro de ATCKSTACK o bien dentro de una de tus MVs (con las herramientas de LDAP instaladas):
+Primero comprueba que estás dentro del servidor LDAP o bien dentro de una de tus MVs (con las herramientas de LDAP instaladas):
 
 Prueba: 
 
 ```
 ldapsearch -H ldap://192.168.0.77 -LL -b ou=Users,dc=openstack,dc=org -x
+
+ldapsearch -H ldap://<IP-en-clase> -LL -b ou=People,dc=openstack,dc=org -x
 ```
 
 Esto, imprime por pantalla el listado Usuarios del servicio de directorio.
@@ -247,22 +231,22 @@ El fichero ldif debe contener definiciones de todos los atributos necesarios par
 
 Con este archivo ``ldif``, puede usar el comando ``ldapadd`` para importar las entradas al directorio como se explica en este tutorial.
 
-Crear un archivo, es decir, ``user.ldif`` y copiar este esqueleto, modificar e incluir sus datos (es decir, ``cn=mparra`` a ``cn=<usuario>``, es decir, ``uid=mparra`` a ``uid=<uid>``, ``gecos`` etc.).
+Crear un archivo, es decir, ``user.ldif`` y copiar este esqueleto, modificar e incluir sus datos (es decir, ``cn=fjbaldan`` a ``cn=< usuario >``, es decir, ``uid=fjbaldan`` a ``uid=<uid>``, ``gecos`` etc.).
 
 
 ```
-dn: cn=mparra,ou=Users,dc=openstack,dc=org
+dn: cn=fjbaldan,ou=Users,dc=openstack,dc=org
 objectClass: top
 objectClass: account
 objectClass: posixAccount
 objectClass: shadowAccount
-cn: mparra
-uid: mparra
+cn: fjbaldan
+uid: fjbaldan
 uidNumber: 16859
 gidNumber: 100
-homeDirectory: /home/mparra
+homeDirectory: /home/fjbaldan
 loginShell: /bin/bash
-gecos: mparra
+gecos: fjbaldan
 userPassword: {crypt}x
 shadowLastChange: 0
 shadowMax: 0
@@ -272,7 +256,7 @@ shadowWarning: 0
 Para añadir el usuario a LDAP, usamos (a la rama openstack/org == openstack.org):
 
 ```
-ldapadd -x -D "cn=admin,dc=openstack,dc=org" -w password -c -f user1.ldif
+ldapadd -H ldap://< IP en clase > -x -D "cn=admin,dc=openstack,dc=org" -w password -c -f user1.ldif
 ```
 
 Forma de hacerlo:
@@ -287,7 +271,7 @@ Si eliminas ``-w password``, y lo cambias por ``-W`` preguntará la clave de adm
 ## Cambiar el Password de un usuario en LDAP
 
 ```
-ldappasswd -s <new_user_password> -W -D "cn=admin,dc=openstack,dc=org" -x "cn=mparra,ou=Users,dc=openstack,dc=org"
+ldappasswd -s < new_user_password > -W -D "cn=admin,dc=openstack,dc=org" -x "cn=fjbaldan,ou=Users,dc=openstack,dc=org"
 ```
 
 En este caso , usamos la opcion -W , ``ldappasswd`` .
@@ -326,11 +310,11 @@ Al modificar el contenido de un directorio, debe cumplir varias condiciones prev
 
 En primer lugar, el DN de enlace y la contraseña utilizados para la autenticación deben tener los permisos adecuados para las operaciones que se realizan.
 
-Crear un ejemplo LDIF Modificar y guardar el archivo como ``mparra_modify.ldif```.
+Crear un ejemplo LDIF Modificar y guardar el archivo como ``fjbaldan_modify.ldif```.
 
 
 ```
-dn: cn=mparra,ou=Users,dc=openstack,dc=org
+dn: cn=fjbaldan,ou=Users,dc=openstack,dc=org
 changetype: modify
 replace: loginShell
 loginShell: /bin/csh
@@ -339,26 +323,26 @@ loginShell: /bin/csh
 Luego ejecuta: 
 
 ```
-ldapmodify -x -D "cn=admin,dc=openstack,dc=org" -w password -H ldap:// -f mparra_modify.ldif
+ldapmodify -x -D "cn=admin,dc=openstack,dc=org" -w password -H ldap:// -f fjbaldan_modify.ldif
 ```
 
-Actualizará ``cn=mparra`` con un nuevo ``loginShell``, en este caso ``/bin/csh```.
+Actualizará ``cn=fjbaldan`` con un nuevo ``loginShell``, en este caso ``/bin/csh```.
 
 Comprueba que los cambios se han hecho: 
 
 ```
 ...
-dn: cn=mparra,ou=Users,dc=openstack,dc=org
+dn: cn=fjbaldan,ou=Users,dc=openstack,dc=org
 objectClass: top
 objectClass: account
 objectClass: posixAccount
 objectClass: shadowAccount
-cn: mparra
-uid: mparra
+cn: fjbaldan
+uid: fjbaldan
 uidNumber: 16859
 gidNumber: 100
-homeDirectory: /home/mparra
-gecos: mparra
+homeDirectory: /home/fjbaldan
+gecos: fjbaldan
 shadowMax: 0
 shadowWarning: 0
 loginShell: /bin/csh
@@ -369,10 +353,10 @@ loginShell: /bin/csh
 Añade una entrada a un usuario LDAP. Crea un nuevo fichero ``manu_add_descrip.ldif`` y añade: 
 
 ```
-dn: cn=mparra,ou=Users,dc=openstack,dc=org
+dn: cn=fjbaldan,ou=Users,dc=openstack,dc=org
 changetype: modify
 add: description
-description: Manuel Parra
+description: Francisco Baldan
 ```
 
 Ejecuta el siguiente comando:
@@ -388,10 +372,10 @@ Ahora, comprueba los cambios:
 ldapsearch -H ldap://localhost -LL -b ou=Users,dc=openstack,dc=org -x
 ```
 
-Y finalmente borra la descripción. Crea un nuevo dichero i.e. ``manu_del_descr.ldif``
+Y finalmente borra la descripción. Crea un nuevo dichero i.e. ``baldan_del_descr.ldif``
 
 ```
-dn: cn=mparra,ou=Users,dc=openstack,dc=org
+dn: cn=fjbaldan,ou=Users,dc=openstack,dc=org
 changetype: modify
 delete: description
 ``` 
@@ -399,7 +383,7 @@ delete: description
 Luego ejecuta: 
 
 ```
-ldapmodify -x -D "cn=admin,dc=openstack,dc=org" -w password -H ldap:// -f manu_del_descr.ldif
+ldapmodify -x -D "cn=admin,dc=openstack,dc=org" -w password -H ldap:// -f baldan_del_descr.ldif
 ```
 
 Comprueba:
@@ -437,7 +421,7 @@ Por ejemplo, si usamos ``ou=People``
 ldapsearch -H ldap://localhost -LL -b ou=People,dc=openstack,dc=org -x
 ```
 
-Esto muestra todo lo que hay bajo desde ``ou=People`` hasta ``dc=openstack,dc=org``
+Esto muestra todo lo que hay desde ``ou=People`` hasta ``dc=openstack,dc=org``
 
 Cualquier combinación de  ``ou``, ``dc``, ... está permitida para buscar dentro del DIT.
 
@@ -447,20 +431,8 @@ Cualquier combinación de  ``ou``, ``dc``, ... está permitida para buscar dentr
 Para este ejercicio es necesario crear o reutilizar una de las MVs que tengas disponibles para añadir:
 
 - Servicio de contenedores docker. Instala Docker.
-- Servicio de Directorio LDAP. Para ello instala dentro de docker:
-
-```
-docker pull larrycai/openldap
-docker run -d -p 389:389 --name ldap -t larrycai/openldap
-```
-
-- Abre el puerto en las políticas de seguridad de OpenStack (desde Horizon), para poder acceder desde fuera al contenedor.
-- Usa el comando para verificar que tu instalación es correcta.
-
-```
-ldapsearch -H ldap://<IP De tu MV> -LL -b ou=People,dc=openstack,dc=org -x
-```
-
+- Servicio de Directorio LDAP. 
+- Abre el puerto en las políticas de seguridad de Azure (web), para poder acceder desde fuera al contenedor.
+- Usa algún comando para verificar que tu instalación es correcta.
 - Añade tu usuario a LDAP y incluye un atributo que sea Teléfono.
-
 

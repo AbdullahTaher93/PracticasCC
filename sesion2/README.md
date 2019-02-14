@@ -27,7 +27,7 @@ Material realizado a partir del trabajo de años anteriores de Manuel Parra & Jo
 Tabla de contenido:
 
   * [Requisitos iniciales](#requisitos-iniciales)
-  * [Acceso vía SSH](#acceso-v-a-ssh)
+  * [Acceso vía SSH](#acceso-vía-ssh)
   * [Despliegue automático de servicios y software](#despliegue-automatico-de-servicios-y-software)
   * [Breve introducción a ANSIBLE](#breve-introducci-n-a-ansible)
     + [Elementos en ANSIBLE:](#elementos-en-ansible-)

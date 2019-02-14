@@ -36,7 +36,7 @@ Tabla de contenido:
     + [Atributos](#atributos)
     + [Entradas](#entradas)
     + [DIT](#dit)
-    + [Distinguished name (dn). Nombre distinguido.](#distinguished-name--dn--nombre-distinguido)
+    + [Distinguished name (dn). Nombre distinguido.](#distinguished-name-(dn)-nombre-distinguido)
     + [Ejemplo de la estructura de LDAP](#ejemplo-de-la-estructura-de-ldap)
   * [Verificando el estado del directorio LDAP](#verificando-el-estado-del-directorio-ldap)
     + [Añadir un nuevo usuario](#a-adir-un-nuevo-usuario)

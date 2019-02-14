@@ -14,7 +14,8 @@ Tutorías: **Lunes, de 11:00 a 12:00, despacho D31 (4ª planta) Escuela Técnica
 
 Material de prácticas de la asignatura: **https://github.com/fjbaldan/PracticasCC**
 
-Francisco Javier Baldán Lozano (fjbaldan@decsai.ugr.es), Enero 2019
+Francisco Javier Baldán Lozano (fjbaldan@decsai.ugr.es), Febrero 2019
+
 ![DICITSlogo](http://sci2s.ugr.es/dicits/images/dicits.png)
 
 Material realizado a partir del trabajo de años anteriores de Manuel Parra & José Manuel Benitez: https://github.com/DiCITS/MasterCienciaDatos2019 & https://github.com/manuparra/PracticasCC
@@ -171,11 +172,6 @@ El padre directo es una entrada llamada ``ou=Users`` que se utiliza como contene
 Los padres de esta entrada derivan del nombre de dominio "openstack.org", que funciona como la raíz de nuestro DIT.
 
 Éstos se utilizan a menudo para las categorías generales bajo la entrada DIT de nivel superior, cosas como ``ou=personas, ou=grupos, y ou=inventario``` son los más comunes.
-
-
-### Ejemplo de la estructura de LDAP
-
-![LDAPstruct](https://sites.google.com/site/manuparra/home/Untitled.png)
 
 
 ## Verificando el estado del directorio LDAP

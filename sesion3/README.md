@@ -161,27 +161,25 @@ Se trabaja para construir una implementación estándar de Máquinas Virtuales (
 
 **Desarrollo rápido**
 
-Deje de perder horas configurando entornos de desarrollador, creando nuevas instancias y haciendo copias del código de producción para ejecutar localmente. Con Docker, simplemente tome copias de su entorno en directo y ejecútelas en cualquier punto final nuevo que ejecute un motor Docker.
+Deje de perder horas configurando entornos de desarrollador, creando nuevas instancias y haciendo copias del código de producción para ejecutar localmente. Con Docker, simplemente tome copias de su entorno en directo y ejecútelas en cualquier lugar.
 
 **Trabaja confortablemente**
 
-Las capacidades de aislamiento de los contenedores Docker liberan a los desarrolladores de limitaciones: pueden utilizar el mejor lenguaje y las mejores herramientas para sus servicios de aplicaciones sin preocuparse de causar conflictos internos de herramientas.
+Las capacidades de aislamiento de los contenedores Docker liberan a los desarrolladores de múltiples limitaciones: pueden utilizar el mejor lenguaje y las mejores herramientas para sus servicios de aplicaciones sin preocuparse de causar conflictos internos entre diferentes herramientas.
 
 **Olvídate de las inconsistencias.**
 
-El empaquetado de una aplicación en un contenedor con sus configuraciones y dependencias garantiza que la aplicación funcionará siempre según lo diseñado en cualquier entorno: localmente, en otra máquina, en prueba o producción. No más preocupaciones de tener que instalar las mismas configuraciones en diferentes entornos.
+El empaquetado de una aplicación en un contenedor con sus configuraciones y dependencias garantiza que la aplicación funcionará siempre según lo diseñado en cualquier entorno: localmente, en otra máquina, en entornos de prueba o producción. No más preocupaciones sobre tener que instalar las mismas configuraciones en diferentes entornos.
 
 **Comparte tus contenedores.**
 
-Almacene, distribuya y administre imágenes Docker en Docker Hub con su equipo. Las actualizaciones, los cambios y el historial de imágenes se comparten automáticamente en toda la organización.
+Almacene, distribuya y administre imágenes de Docker en Docker Hub con su equipo. Las actualizaciones, los cambios y el historial de imágenes se comparten automáticamente con toda la organización.
 
 **Escala**
 
 Docker le permite cambiar dinámicamente su aplicación, desde añadir nuevas capacidades y escalar servicios, hasta cambiar rápidamente las áreas problemáticas.
 
-Los contenedores Docker giran hacia arriba y hacia abajo en segundos, lo que facilita escalar los servicios de aplicación para satisfacer la demanda máxima del cliente, y luego reducir los contenedores en funcionamiento.
-
-Docker facilita la identificación de problemas, aísla el contenedor del problema, vuelve rápidamente para hacer los cambios necesarios, y luego empuja el contenedor actualizado a la producción. El aislamiento entre contenedores hace que estos cambios sean menos perturbadores que en los modelos de software tradicionales.
+Docker facilita la identificación de problemas, aísla el contenedor del problema, accede rápidamente a él para hacer los cambios necesarios, y luego devuelve el contenedor actualizado a la producción. El aislamiento entre contenedores hace que estos cambios sean menos perturbadores que en los modelos de software tradicionales.
 
 
 **Multiplataforma**

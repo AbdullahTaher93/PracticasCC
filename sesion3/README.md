@@ -462,7 +462,7 @@ DOCKER tienen una gran capacidad de parametrización de los contenedores:
 
 ### Creación de contenedores enlazados
 
-Para esta parte borraremos la MV que hemos creado anteriormente y crearemos dos MV nuevas cada una con un servicios determinados instalados en contenedores.
+Para esta parte borraremos la MV que hemos creado anteriormente y crearemos dos MV nuevas cada una con unos servicios determinados instalados en contenedores.
 
 
 #### Maquina Virtual 1

@@ -144,18 +144,18 @@ Hay que tener en cuenta lo siguiente en el script:
 
 ### VIRTUAL MACHINES
 
-Las máquinas virtuales incluyen la aplicación, los binarios y bibliotecas necesarios, y un sistema operativo **entero de invitados**, todos los cuales pueden llegar a tener decenas de GBs.
+Las máquinas virtuales incluyen la aplicación, los binarios y bibliotecas necesarios, y un sistema operativo completo de invitados, todos los cuales pueden llegar a tener decenas de GBs.
 
 
 ### CONTAINERS
 
-Los contenedores incluyen la aplicación y todas sus dependencias, pero **comparten el kernel con otros contenedores, ejecutándose como procesos aislados en el espacio de usuario del sistema operativo host**. Los contenedores Docker no están vinculados a ninguna infraestructura específica: se ejecutan en cualquier ordenador, en cualquier infraestructura y en cualquier nube.
+Los contenedores incluyen la aplicación y todas sus dependencias, pero **comparten el kernel con otros contenedores, ejecutándose como procesos aislados en el espacio de usuario del sistema operativo del host**. Los contenedores Docker no están vinculados a ninguna infraestructura específica: se ejecutan en cualquier ordenador, en cualquier infraestructura y en cualquier nube.
 
 ### KATAContainers
 
 Kata Containers es un nuevo proyecto de código abierto que construye máquinas virtuales extremadamente ligeras que se conectan perfectamente al ecosistema de contenedores.
 
-Se trabaja para construir una implementación estándar de Máquinas Virtuales (VMs) ligeras que se sienten y funcionan como contenedores, pero proporcionan las ventajas de aislamiento de carga de trabajo y seguridad de las máquinas virtuales.
+Se trabaja para construir una implementación estándar de Máquinas Virtuales (VMs) ligeras que se sientan y funcionen como contenedores, pero que proporcionen las ventajas de aislamiento de carga de trabajo y seguridad de las máquinas virtuales.
 
 ## Ventajas de DOCKER
 

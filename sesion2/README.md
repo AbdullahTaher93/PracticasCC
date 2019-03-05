@@ -186,6 +186,7 @@ Otro ejemplo para instalar APACHE y PHP:
 
 Creamos una nueva instancia dentro de Azure. Esta instancia la usaremos para probar el despliegue de software dentro de la MV.
 
+```
 az vm create \
     --resource-group myResourceGroup \
     --name myVMtest \
@@ -193,7 +194,7 @@ az vm create \
     --admin-username azureuser \
     --generate-ssh-keys \
     --storage-sku Standard_LRS
-
+```
 
 Nos conectamos a ella:
 

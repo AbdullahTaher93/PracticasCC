@@ -294,8 +294,8 @@ Estas instancias deben contener un software específico para cada servicio que s
 Necesitaremos instalar en instancias separadas:
 
 - Nodo de cabecera (1 nodo):
- - NGINX o HAproxy
+  - NGINX o HAproxy
 - Nodos de servicio (1-2 nodos):
- - Servicio de contenedores (docker)
- - Nodo de Base de Datos (1 nodo)
- - Nodo para autenticación (1 nodo)
+  - Servicio de contenedores (docker)
+  - Nodo de Base de Datos (1 nodo)
+  - Nodo para autenticación (1 nodo)

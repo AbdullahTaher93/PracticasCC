@@ -191,7 +191,8 @@ az vm create \
     --name myVMtest \
     --image UbuntuLTS \
     --admin-username azureuser \
-    --generate-ssh-keys
+    --generate-ssh-keys \
+    --storage-sku Standard_LRS
 
 
 Nos conectamos a ella:
@@ -295,5 +296,5 @@ Necesitaremos instalar en instancias separadas:
  - NGINX o HAproxy
 - Nodos de servicio (1-2 nodos):
  - Servicio de contenedores (docker)
-- Nodo de Base de Datos (1 nodo)
-- Nodo para autenticación (1 nodo)
+ - Nodo de Base de Datos (1 nodo)
+ - Nodo para autenticación (1 nodo)

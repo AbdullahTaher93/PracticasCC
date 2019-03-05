@@ -228,9 +228,9 @@ Explicamos el contenido del fichero:
 
 - Grupo de Hosts que se llama ```[MVs]```
 - Línea de hosts:
- - IP de la instancia que queramos desplegar:
- - ansible_ssh_private_key_file=tuficherokey.pem Indica el nombre del fichero de tu llave de ssh que se usará para conectar a la instancia.
- - ansible_user=azureuser Indica el usuario que usaremos para conectar
+ -- IP de la instancia que queramos desplegar:
+ -- ansible_ssh_private_key_file=tuficherokey.pem Indica el nombre del fichero de tu llave de ssh que se usará para conectar a la instancia.
+ -- ansible_user=azureuser Indica el usuario que usaremos para conectar
 
 
 En este fichero iremos guardando todo el inventario de MVs que tengamos que desplegar con software o servicios para la práctica. En él tendrás que ir añadiendo todas tus instancias.

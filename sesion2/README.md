@@ -176,9 +176,9 @@ Otro ejemplo para instalar APACHE y PHP:
   become: true
   tasks:
    - name: Install Apache
-     yum: pkg=apache2 state=installed 
+     apt: pkg=apache2 state=installed 
    - name: Install PHP
-     yum: pkg=php state=installed 
+     apt: pkg=php state=installed 
 ```
 
 

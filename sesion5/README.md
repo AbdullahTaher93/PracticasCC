@@ -6,672 +6,153 @@ Universidad de Granada.
 
 <HR>
 
-Profesor: **Manuel J. Parra-Royón**
+Profesor: **Francisco Javier Baldán Lozano**
 
-Email: **manuelparra@decsai.ugr.es**
+Email: **fjbaldan@decsai.ugr.es**
 
-Tutorías: **Viernes, de 17:30 a 18:30, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT).**
+Tutorías: **Lunes, de 11:00 a 12:00, despacho D31 (4ª planta) Escuela Técnica Superior de Ingenierías Informática y de Telecomunicación (ETSIIT). Se recomienda concretar las citas por correo.**
 
-Material de prácticas de la asignatura: **https://github.com/manuparra/PracticasCC**
+Material de prácticas de la asignatura: **https://github.com/fjbaldan/PracticasCC**
+
+Francisco Javier Baldán Lozano (fjbaldan@decsai.ugr.es), Enero 2019
+![DICITSlogo](http://sci2s.ugr.es/dicits/images/dicits.png)
+
+Material realizado a partir del trabajo de años anteriores de Manuel Parra & José Manuel Benitez: https://github.com/DiCITS/MasterCienciaDatos2019 & https://github.com/manuparra/PracticasCC
 
 <HR>
 
-# Sesión : Introducción a MongoDB
+
+# Sesión 5: Creación de tus propios contenedores
 
 Tabla de contenido:
 
-- [Usando MongoDB](#usando-mongo)
-  * [Documentos en lugar de filas/columnas](#documentos-en-lugar-de-filas-columnas)
-    + [Tipos de datos](#tipos-de-datos)
-- [Comenzando con MongoDB](#comenzando-con-mongodb)
-  * [Conectando a mongodb:](#conectando-a-mongodb-)
-  * [Selección/creación/eliminación de la base de datos](#selecci-n-creaci-n-eliminaci-n-de-la-base-de-datos)
-  * [Crear una colección](#crear-una-colecci-n)
-  * [Borrar las colecciones](#borrar-las-colecciones)
-  * [Trabajar con documentos sobre las colecciones](#trabajar-con-documentos-sobre-las-colecciones)
-  * [Seleccionando, Consultando y Filtrando](#seleccionando--consultando-y-filtrando)
-  * [Actualizando documentos](#actualizando-documentos)
-  * [Borrando documentos](#borrando-documentos)
-  * [Importar datos externos](#importar-datos-externos)
-  * [Clients MongoDB](#clients-mongodb)
-- [References](#references)
+  * [Requisitos iniciales](#requisitos-iniciales)
+  * [Credenciales y acceso inicial](#credenciales-y-acceso-inicial)
+  * [Acceso vía SSH](#acceso-vía-ssh)
+  * [Creación de un contenedor(#creación-de-un-contenedor)
+    + [Creación de una imagen](#entrenando-con-ldap)
+    + [Obtención-del-contenedor](#obtención-del-contenedor)
+  * [Ejercicio: Crear un contenedor con mysql configurado para acceso exterior](#ejercicio--crear-un-servicio-de-directorio-ldap-en-contendor-dentro-de-una-mv)
 
-# Usando MongoDB
 
-MongoDB es una base de datos de código abierto desarrollada por MongoDB, Inc. 
+## Requisitos iniciales
 
-MongoDB almacena datos en documentos similares a JSON que pueden variar en estructura. La información relacionada se almacena junta para un acceso rápido a la consulta a través del lenguaje de consulta MongoDB. MongoDB utiliza esquemas dinámicos, lo que significa que puede crear registros **sin definir primero la estructura**, como los campos o los tipos de sus valores. Puede cambiar la estructura de los registros (a los que llamamos documentos) simplemente añadiendo nuevos campos o borrando los existentes. Este modelo de datos le da la capacidad de representar relaciones jerárquicas, almacenar matrices y otras estructuras más complejas fácilmente. No es necesario que los documentos de una colección tengan un conjunto idéntico de campos y es frecuente la desnormalización de los datos. MongoDB también fue diseñado con alta disponibilidad y escalabilidad en mente, e incluye replicación lista para usar y auto-sharding.
+- Tener cuenta de correo de alumno de la universidad.
+- Conocimientos básicos del SHELL.
+- Conceptos básicos de Cloud y Máquinas Virtuales.
 
 
-**MongoDB principales características:**
+## Acceso vía SSH
 
-* Almacenamiento orientado a documentos - Los datos se almacenan en forma de documentos de estilo JSON.
-* Índice sobre cualquier atributo
-* Replicación y alta disponibilidad
-* Auto-sharding
-* Consultas ricas
+Para usar SSH, utilízalo desde la consola de Linux o bien desde Windows usando la aplicación ``putty``.
 
-**Usando Mongo:**
+Si usas Windows descarga ``putty`` desde: https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html e indica los siguientes datos en la pantalla de configuración:
 
-* Big Data
-* Gestión y entrega de contenidos
-* Infraestructura Móvil y Social
-* Gestión de datos de usuario
-* Hub de datos
+- Hostname or IP: ``XXXXXXXX``
+- Port: ``22``
+- Connection Type: ``SSH``
 
-**Comparado con MySQL:**
+Y luego ``Open`` para conectar, donde te pedirá después las credenciales de acceso.
 
-Muchos conceptos en MySQL tienen análogos cercanos en MongoDB. Algunos de los conceptos comunes en cada sistema:
+Si usas SSH desde una consola:
 
-* MySQL -> MongoDB
-* Database -> Database
-* Table -> Collection
-* Row -> Document
-* Column -> Field
-* Joins -> Embedded documents, linking
+``ssh usuario@XXXXXXXX``
 
-**Lenguaje de consulta:**
 
-Desde MySQL:
-
-```
-INSERT INTO users (user_id, age, status)
-VALUES ('bcd001', 45, 'A');
-```
-
-A MongoDB:
-
-```
-db.users.insert({
-  user_id: 'bcd001',
-  age: 45,
-  status: 'A'
-});
-```
-
-Desde MySQL:
-
-```
-SELECT * FROM users
-```
-
-A MongoDB:
-
-```
-db.users.find()
-```
-
-
-Desde MySQL:
-
-```
-UPDATE users SET status = 'C'
-WHERE age > 25
-```
-
-A MongoDB:
-
-```
-db.users.update(
-  { age: { $gt: 25 } },
-  { $set: { status: 'C' } },
-  { multi: true }
-)
-```
-
-
-## Documentos en lugar de filas/columnas
-
-MongoDB almacena registros de datos como documentos BSON. 
-
-BSON es una representación binaria de documentos JSON, contiene más tipos de datos que JSON.
-
-![bsonchema](https://docs.mongodb.com/manual/_images/crud-annotated-document.png)
-
-Los documentos MongoDB se componen de pares de campo y valor y tienen la siguiente estructura:
-
-
-```
-{
-   field1: value1,
-   field2: value2,
-   field3: value3,
-   ...
-   fieldN: valueN
-}
-```
-
-Ejemplo de documento:
-
-```
-var mydoc = {
-               _id: ObjectId("5099803df3f4948bd2f98391"),
-               name: 
-               		{ 
-               		 first: "Alan", 
-               		 last: "Turing" 
-               		},
-               birth: new Date('Jun 23, 1912'),
-               death: new Date('Jun 07, 1954'),
-               contribs: [ 
-               				"Turing machine", 
-               				"Turing test", 
-               				"Turingery" ],
-               views : NumberLong(1250000)
-            }
-```
-
-Para especificar o acceder a un campo de un documento: utilice la notación por puntos
-
-```
-mydoc.name.first
-```
-
-Los documentos permiten documentos incrustados documentos incrustados documentos incrustados ....:
-
-```
-{
-   ...
-   name: { first: "Alan", last: "Turing" },
-   contact: { 
-   			phone: { 
-   					model: { 
-   						brand: "LG", 
-   						screen: {'maxres': "1200x800"} 
-   					},
-   					type: "cell", 
-   					number: "111-222-3333" } },
-   ...
-}
-```
-
-El tamaño máximo de los documentos BSON es de **16 megabytes!**.
-
-
-### Tipos de datos
-
-* String − This is the most commonly used datatype to store the data.
-* Integer − This type is used to store a numerical value.
-* Boolean − This type is used to store a boolean (true/ false) value.
-* Double − This type is used to store floating point values.
-* Min/ Max keys − This type is used to compare a value against the lowest and highest BSON elements.
-* Arrays − This type is used to store arrays or list or multiple values into one key.
-* Timestamp − ctimestamp. This can be handy for recording when a document has been modified or added.
-* Object − This datatype is used for embedded documents.
-* Null − This type is used to store a Null value.
-* Symbol − This datatype is used identically to a string; however, it's generally reserved for languages that use a specific symbol type.
-* Date − This datatype is used to store the current date or time in UNIX time format. You can specify your own date time by creating object of Date and passing day, month, year into it.
-* Object ID − This datatype is used to store the document’s ID.
-* Binary data − This datatype is used to store binary data.
-* Code − This datatype is used to store JavaScript code into the document.
-* Regular expression − This datatype is used to store regular expression.
-
-
-# Comenzando con MongoDB
-
-Conectate a ATCSTACK:
-
-```
-ssh manuparra@.........es
-```
-
-En primer lugar, compruebe que tiene acceso al sistema de herramientas mongo, pruebe este comando:
-
-```
-mongo + tab
-```
-
-mostrará:
-
-```
-mongo         mongodump     mongoexport   mongofiles    
-mongoimport   mongooplog    mongoperf     mongorestore  mongostat     mongotop 
-```
-
-## Conectando a mongodb:
-
-El puerto por defecto para instancias de mongodb y mongos es 27017. 
-Puede cambiar este puerto con port o --port cuando se conecte.
-
-Escribe:
-
-```
-mongo
-```
-
-Conectará con los parámetros por defecto: ```localhost```, puerto: ```27017``` y base de datos: ``test``.
-
-
-```
-MongoDB shell version: 2.6.12
-connecting to: test
->
-```
-
-Para salir usa ``CTRL+C`` o ``exit``
-
-Cada usuario tiene una cuenta en el servicio mongodb. Para conectar:
-
-```
-mongo localhost:27017/manuparra -p 
-```
-
-Preguntará el password ``password``. 
-
-```
-mongo localhost:27017/manuparra -p mipasss 
-```
-
-
-El servicio MongoDB se está ejecutando localmente en sistemas Docker, por lo tanto, si se conecta desde contenedores Docker o Máquinas Virtuales, debe utilizar el sistema local Docker IP:
-
-```
-mongo 192.168.10.30:27017/manuparra -p mipasss 
-```
-
-## Selección/creación/eliminación de la base de datos
-
-El comando creará una nueva base de datos si no existe, de lo contrario devolverá la base de datos existente.
-
-```
-> use manuparra:
-```
-
-Ahora estás usando la base de datos ``manuparra`` .
-
-Si quieres saber qué base de datos estás usando:
-
-```
-> db
-```
-
-El comando ```command db.dropDatabase()`` es usado para borrar la base de datos existente.
-
-NO USES ESTE COMANDO:
-
-```
-db.dropDatabase()
-```
-
-Para conocer el tamaño de las bases de datos:
-
-```
-show dbs
-```
-
-## Crear una colección
-
-La sintaxis básica del comando createCollection() es la siguiente:
-
+## Creación de un contenedor
+Comenzamos creando un directorio de pruebas en el que vamos a desarrollar la creación de los contenedores de esta sesión. Creamos el fichero Dockerfile que contendrá la configuración básica de la imagen:
 ```
-db.createCollection(name, options)
+mkdir containertest
+cd containertest
+vi Dockerfile
 ```
 
-donde ``options`` es Opcional y especifica opciones sobre el tamaño de la memoria y la indexación.
+FROM indica la imagen del S.O. de la que partimos.
 
-Recuerde que en primer lugar el mongodb necesita saber cuál es la Base de Datos donde creará la Colección. Use ``show dbs`` y luego ``use <su base de datos>``.
+RUN indica los comandos a ejecutar.
 
-```
-use manuparra;
-```
-
-Y luego creamos la colección:
-
-```
-db.createCollection("MyFirstCollection")
-```
-
-Ahora comprobamos que está disponible:
-
-```
-show collections
-```
-
-En MongoDB, no es necesario crear la colección. MongoDB crea la colección automáticamente, cuando usted inserta algún documento:
-
-```
-db.MySecondCollection.insert({"name" : "Manuel Parra"})
-```
-
-Ya tienes las nuevas colecciones creadas:
-
-```
-show collections
-```
-
-## Borrar las colecciones
-
-Para borrar las colecciones desde la base de datos:
-
-```
-db.MySecondCollection.drop();
-
-```
-
-
-## Trabajar con documentos sobre las colecciones
-
-Para insertar datos en la colección de MongoDB, necesita usar el método ``insert()`` o ``save()`` de MongoDB.
-
-```
-> db.MyFirstCollection.insert(<document>);
-```
-
-Ejemplo de documento: place 
-
-```
-{    
-     "bounding_box":
-    {
-        "coordinates":
-        [[
-                [-77.119759,38.791645],
-                [-76.909393,38.791645],
-                [-76.909393,38.995548],
-                [-77.119759,38.995548]
-        ]],
-        "type":"Polygon"
-    },
-     "country":"United States",
-     "country_code":"US",
-     "likes":2392842343,
-     "full_name":"Washington, DC",
-     "id":"01fbe706f872cb32",
-     "name":"Washington",
-     "place_type":"city",
-     "url": "http://api.twitter.com/1/geo/id/01fbe706f872cb32.json"
-}
-```
-
-Para insertar:
-
-```
-db.MyFirstCollection.insert(
-{    
-     "bounding_box":
-      {
-        "coordinates":
-        [[
-                [-77.119759,38.791645],
-                [-76.909393,38.791645],
-                [-76.909393,38.995548],
-                [-77.119759,38.995548]
-        ]],
-        "type":"Polygon"
-      },
-     "country":"United States",
-     "country_code":"US",
-     "likes":2392842343,
-     "full_name":"Washington, DC",
-     "id":"01fbe706f872cb32",
-     "name":"Washington",
-     "place_type":"city",
-     "url": "http://api.twitter.com/1/geo/id/01fbe706f872cb32.json"
-}
-);
-```
-
-Comprobar si el documento está almacenado:
-
-```
-> db.MyFirstCollection.find();
-```
-
-Añade multiple documentos:
-
-```
-	var places= [
-		{    
-	     "bounding_box":
-	      {
-	        "coordinates":
-	        [[
-	                [-77.119759,38.791645],
-	                [-76.909393,38.791645],
-	                [-76.909393,38.995548],
-	                [-77.119759,38.995548]
-	        ]],
-	        "type":"Polygon"
-	      },
-	     "country":"United States",
-	     "country_code":"US",
-	     "likes":2392842343,
-	     "full_name":"Washington, DC",
-	     "id":"01fbe706f872cb32",
-	     "name":"Washington",
-	     "place_type":"city",
-	     "url": "http://api.twitter.com/1/geo/id/01fbe706f872cb32.json"
-	},
-	{    
-	     "bounding_box":
-	      {
-	        "coordinates":
-	        [[
-	                [-7.119759,33.791645],
-	                [-7.909393,34.791645],
-	                [-7.909393,32.995548],
-	                [-7.119759,34.995548]
-	        ]],
-	        "type":"Polygon"
-	      },
-	     "country":"Spain",
-	     "country_code":"US",
-	     "likes":2334244,
-	     "full_name":"Madrid",
-	     "id":"01fbe706f872cb32",
-	     "name":"Madrid",
-	     "place_type":"city",
-	     "url": "http://api.twitter.com/1/geo/id/01fbe706f87333e.json"
-	}
-	]
-```
-
-y:
-
-```
-db.MyFirstCollection.insert(places)
-```
-
-
-En el documento insertado, si no especificamos el parámetro ``_id``, entonces MongoDB asigna un ObjectId único para este documento.
-Puede anular el valor ``_id``, usando su propio ``_id``.
-
-Dos métodos para guardar/insertar:
-
-
-```
-db.MyFirstCollection.save({username:"myuser",password:"mypasswd"})
-db.MyFirstCollection.insert({username:"myuser",password:"mypasswd"})
-```
-
-Diferencias:
-
-> Si un documento no existe con el valor ```_id``` especificado, el método ``save()`` realiza una inserción con los campos especificados en el documento.
-
-> Si existe un documento con el valor ``_id`` especificado, el método ``save()`` realiza una actualización, sustituyendo todos los campos del registro existente por los campos del documento.
-
-
-## Seleccionando, Consultando y Filtrando
-
-Muestra todos los documentos en ``MyFirstCollection``:
-
-```
-> db.MyFirstCollection.find();
-```
-
-Sólo un documento:
-
-```
-> db.MyFirstCollection.findOne();
-```
-
-Cuenta los documentos, añade  ``.count()`` al comando:
-
-```
-> db.MyFirstCollection.find().count();
-```
-
-
-Muestra los documentos en un formato bonito:
+CMD indica el comando por defecto a utilizar.
 
 ```
-> db.MyFirstCollection.find().pretty()
-```
+FROM ubuntu:latest
 
-Selecciona o busca mediante campos, por ejemplo como ``bounding_box.type``:
+RUN apt-get -y update; \
+    apt-get -y upgrade; \
+    apt-get -y install apt-utils \
+    vim;
 
+CMD ["bash"]
 ```
-...
- "bounding_box":
-    {
-        "coordinates":
-        [[
-                [-77.119759,38.791645],
-                [-76.909393,38.791645],
-                [-76.909393,38.995548],
-                [-77.119759,38.995548]
-        ]],
-        "type":"Polygon"
-    },
-...
-```
-
-
+Tras crear el fichero de configuración pasamos a construir la imagen:
 ```
-> db.MyFirstCollection.find("bounding_box.type":"Polygon")
+sudo docker build  -t "test10:dockerfile" .
 ```
-
-
-Filtrado:
-
-Igualdad	``{<key>:<value>}``	 ``db.MyFirstCollection.find({"country":"Spain"}).pretty()``
+Una vez creada, debemos ser capaces de verla en el listado de imágenes de docker:
 
-Menor que 	``{<key>:{$lt:<value>}}``	``db.mycol.find({"likes":{$lt:50}}).pretty()``
-
-Menor o igual	``{<key>:{$lte:<value>}}``	``db.mycol.find({"likes":{$lte:50}}).pretty()``
-
-Mayor que	``{<key>:{$gt:<value>}}``	``db.mycol.find({"likes":{$gt:50}}).pretty()``
-
-Más o igual que : ``gte`` Greater than equal, ``ne`` Not equal, etc. 
-
-Y:
-
 ```
-> db.MyFirstCollection.find(
-   {
-      $and: [
-         {key1: value1}, {key2:value2}
-      ]
-   }
-).pretty()
+sudo docker images
 ```
-
-O:
-> db.MyFirstCollection.find(
-   {
-      $or: [
-         {key1: value1}, {key2:value2}
-      ]
-   }
-).pretty()
-
-Mezclando todo:
 
+Se puede observar el identificador, su tamaño y hace cuanto tiempo se creó:
 ```
-db.MyFirstCollection.find(
-		{"likes": {$gt:10}, 
-		 $or: 
-			[
-			 {"by": "..."},
-   			 {"title": "..."}
-   			]
-   		}).pretty()
+azureuser@MYVM:~/containertest$ sudo docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+test10              dockerfile          45e792a87d93        12 minutes ago      198MB
 ```
 
-
-Usando expresiones regulares en los campos, por ejemplo para buscar documentos donde el nombre  ``name`` contenga ``Wash``.
-
-
+Tras verificar que se ha creado la imagen, procedemos a crear su correspondiente contenedor:
 ```
-db.MyFirstCollection.find({"name": /.*Wash.*/})
+azureuser@MYVM:~/containertest$ sudo docker run -dti --name testcontainer 45e792a87d93
+a49078b1bef8f7ea6c5b22f94214a68f9ad44b3a046d63e0b4e5866b10cd81e2
+azureuser@MYVM:~/containertest$ sudo docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+a49078b1bef8        45e792a87d93        "bash"              12 minutes ago      Up 12 minutes                           testcontainer
 
 ```
 
-
-## Actualizando documentos
-
-Sintaxis:
-
+A continuación vamos a comprobar que el contenedor cuenta con el software especificado. Para ello accedemos a la imagen y ejecutamos los diferentes programas:
 ```
-> db.MyFirstCollection.update(<selection criteria>, <data to update>)
+azureuser@MYVM:~/containertest$ sudo docker exec -i -t testcontainer /bin/bash
+root@a49078b1bef8:/# vim
 ```
 
-Ejemplo:
+Puede verse que el editor vim está instalado.
 
+Es posible que se necesite crear un contenedor con una configuración determinada adaptada a una series de servicios o necesidades específicas que no están cubiertas en la instalación por defecto. Por ello es necesario saber cómo exportar una imagen de un contenedor modificada para poder distribuirla donde sea necesario. Para ello, tras modificar lo necesario en el contenedor la imagen del mismo puede exportarse de la siguiente forma:
 ```
-db.MyFirstCollection.update(
-	 { 'place_type':'area'},
-	 { $set: {'title':'New MongoDB Tutorial'}},
-	 {multi:true}
-	);
+sudo docker commit CONTAINER_ID img_test_mod
 ```
-
-IMPORTANTE: use ``multi:true`` para actualizar todas las coincidencias.
+De esta forma se ha creado una imagen del contenedor modificado.
 
-
-## Borrando documentos
-
-MongoDB tiene el método  ``remove()`` para borrar un documento de una colección. ``remove()``. El método acepta dos parametros. Uno, el método de borrado y el otro el la opción justOne.
-
+Esta imagen se exportaría en un archivo .tar:
 ```
-> db.MyFirstCollection.remove(<criteria>)
+sudo docker image save img_test_mod > out.tar
 ```
-
-Ejemplo:
-
+Para importar dicha imagen en cualquier máquina se haría de la siguiente forma:
 ```
-db.MyFirstCollection.remove({'country':'United States'})
+sudo docker image import out.tar [Repository:Tag]
 ```
-
-
-## Importar datos externos
 
-Descargue este conjunto de datos en tu HOME (copie este enlace: http://samplecsvs.s3.amazonaws.com/SacramentocrimeJanuary2006.csv):
+## Opciones adicionales de interés
+Nuestros contenedores pueden tener diferentes necesidades a la hora de su creación, por este motivo vamos a ver las herramientas disponibles en la creación de contenedores (Dockerfile):
 
-[DataSet](http://samplecsvs.s3.amazonaws.com/SacramentocrimeJanuary2006.csv) 7585 rows and 794 KB)
+-MAINTAINER: Permite al autor especificar sus datos: nombre, dirección de correo electrónico, etc.
 
-Usa el comando siguiente:
+-ENV: Especificar variables de entorno.
 
-```
-curl -O http://samplecsvs.s3.amazonaws.com/SacramentocrimeJanuary2006.csv
-```
-
-o descargalo desde [github](./datasetmongodb/SacramentocrimeJanuary2006.csv).
-
-Para importar el fichero:
-
-```
-mongoimport -d manuparra -c <your collection> --type csv --file /tmp/SacramentocrimeJanuary2006.csv --headerline
-```
+-ADD: Permite añadir ficheros al sistema de ficheros del contenedor. (Pueden ser URL o archivos comprimidos, los cuales serán descomprimidos cuando se añadan al contenedor)
 
-Prueba las siguientes consultas a la colección:
+-COPY: Añade ficheros al sistema de ficheros del contenedor pero sin las opciones adicionales con las que cuenta ADD. Se recomienda el uso de COPY para cualquier caso que no requiera específicamente de ADD.
 
-- Cuenta el número de delitos/robos.
-- Cuenta el número de delitos por hora.
+-EXPOSE: Especifica los puertos que va a escuchar el contenedor. (Es necesarios especificar cuando se lanza el contenedor dicho puertos para que sean accesibles desde el host.)
 
+-VOLUME: Permite al contenedor acceder a una ubicación del host. Estos volúmenes serán siempre accesibles en /var/lib/docker/volumes/.
 
-## Clients MongoDB
+-WORKDIR: Directorio donde se ejecutan todas las acciones.
 
-- Command line tools: https://github.com/mongodb/mongo-tools
-- Use Mongo from PHP: https://github.com/mongodb/mongo-php-library
-- Use Mongo from NodeJS: https://mongodb.github.io/node-mongodb-native/
-- Perl to MongoDB: https://docs.mongodb.com/ecosystem/drivers/perl/
-- Full list of Mongo Clients (all languages): https://docs.mongodb.com/ecosystem/drivers/#drivers
+-USER: Especifica el usuario que realizará las acciones. Por defecto es el root.
 
+-ARG: Nos permite añadir parámetros al Dockerfile.
 
-# References 
+## Ejercicio: Crear un contenedor con mysql configurado para acceso exterior
 
-- Getting Started with MongoDB (MongoDB Shell Edition): https://docs.mongodb.com/getting-started/shell/
-- MongoDB Tutorial: https://www.tutorialspoint.com/mongodb/
-- MongoDB Tutorial for Beginners: https://www.youtube.com/watch?v=W-WihPoEbR4
-- Mongo Shell Quick Reference: https://docs.mongodb.com/v3.2/reference/mongo-shell/

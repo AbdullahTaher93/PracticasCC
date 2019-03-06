@@ -29,7 +29,7 @@ Tabla de contenido:
   * [Requisitos iniciales](#requisitos-iniciales)
   * [Credenciales y acceso inicial](#credenciales-y-acceso-inicial)
   * [Acceso vía SSH](#acceso-vía-ssh)
-  * [Creación de un contenedor(#creación-de-un-contenedor)
+  * [Creación de un contenedor](#creación-de-un-contenedor)
     + [Creación de una imagen](#entrenando-con-ldap)
     + [Obtención-del-contenedor](#obtención-del-contenedor)
   * [Ejercicio: Crear un contenedor con mysql configurado para acceso exterior](#ejercicio--crear-un-servicio-de-directorio-ldap-en-contendor-dentro-de-una-mv)

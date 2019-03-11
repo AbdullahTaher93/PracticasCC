@@ -144,7 +144,7 @@ Nuestros contenedores pueden tener diferentes necesidades a la hora de su creaci
 
 -COPY: Añade ficheros al sistema de ficheros del contenedor pero sin las opciones adicionales con las que cuenta ADD. Se recomienda el uso de COPY para cualquier caso que no requiera específicamente de ADD.
 
--EXPOSE: Especifica los puertos que va a escuchar el contenedor. (Es necesarios especificar cuando se lanza el contenedor dicho puertos para que sean accesibles desde el host.)
+-EXPOSE: Especifica los puertos que va a escuchar el contenedor. (Es necesario especificar cuando se lanza el contenedor dicho puertos para que sean accesibles desde el host.)
 
 -VOLUME: Permite al contenedor acceder a una ubicación del host. Estos volúmenes serán siempre accesibles en /var/lib/docker/volumes/.
 
@@ -156,3 +156,4 @@ Nuestros contenedores pueden tener diferentes necesidades a la hora de su creaci
 
 ## Ejercicio: Crear un contenedor con mysql configurado para acceso exterior
 
+## Docker Compose: Crear un servicio web y base de datos modificable sin corte de servicio.

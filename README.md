@@ -81,7 +81,7 @@ Tabla de contenido:
     + [Instalación del servicio completo OWNCLOUD + MYSQL](./sesion3/README.md#instalación-del-servicio-completo-owncloud--mysql)
 
 
-# Sesión 4: Despliegue de servicios en contenedores
+# Sesión 4: Creación de tus propios contenedores
 
 Tabla de contenido:
 
@@ -103,7 +103,7 @@ Tabla de contenido:
   * [Buscando y encontrado dentro del DIT](./sesion4/README.md#buscando-y-encontrado-dentro-del-dit)
   * [Ejercicio: Crear un servicio de directorio LDAP en contenedor dentro de una MV](./sesion4/README.md#ejercicio-crear-un-servicio-de-directorio-ldap-en-contendor-dentro-de-una-mv)
 
-# Sesión 5: Despliegue de servicios en contenedores
+# Sesión 5: Despliegue y gestión de servicios de autenticación de usuarios (LDAP)
 
 Tabla de contenido:
 

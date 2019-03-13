@@ -23,7 +23,7 @@ Material realizado a partir del trabajo de años anteriores de Manuel Parra & Jo
 <HR>
 
 
-# Sesión 5: Despliegue de servicios en contenedores
+# Sesión 5: Despliegue y gestión de servicios de autenticación de usuarios (LDAP)
 
 Tabla de contenido:
 

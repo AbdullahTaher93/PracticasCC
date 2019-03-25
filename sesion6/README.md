@@ -661,7 +661,7 @@ Prueba las siguientes consultas a la colección:
 
 
 ## Clients MongoDB
-
+- https://hub.docker.com/r/bitnami/mongodb/
 - Command line tools: https://github.com/mongodb/mongo-tools
 - Use Mongo from PHP: https://github.com/mongodb/mongo-php-library
 - Use Mongo from NodeJS: https://mongodb.github.io/node-mongodb-native/
